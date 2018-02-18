@@ -10,10 +10,13 @@
 </head>
 
 <body>
+    {{ template "header.html" .}}
     <br /> <br /><br />
     <center>
         <h3>Welcome to Golang {{ .goVersion}} with <a href="https://github.com/Massad/gin-boilerplate" target="_blank" title="Gin Boilerplate">Gin Boilerplate</a> version: {{ .ginBoilerplateVersion}}</h3>
     </center>
+    <br /> <br /><br />
+    {{ template "footer.html" .}}
 </body>
 
 </html>

@@ -60,7 +60,9 @@ func main() {
 		v1.DELETE("/article/:id", article.Delete)
 	}
 
-	r.LoadHTMLGlob("./public/html/*")
+	// r.LoadHTMLGlob("./public/html/templates/*.html")
+
+	r.LoadHTMLGlob("./public/html/*.html")
 
 	r.Static("/public", "./public")
 
