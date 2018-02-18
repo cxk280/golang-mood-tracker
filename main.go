@@ -72,12 +72,12 @@ func main() {
 	})
 
 	r.GET("/analytics", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "diary.html", gin.H{
+		c.HTML(http.StatusOK, "analytics.html", gin.H{
 		})
 	})
 
 	r.GET("/dashboard", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "diary.html", gin.H{
+		c.HTML(http.StatusOK, "dashboard.html", gin.H{
 		})
 	})
 
@@ -87,7 +87,7 @@ func main() {
 	})
 
 	r.GET("/feed", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "diary.html", gin.H{
+		c.HTML(http.StatusOK, "feed.html", gin.H{
 		})
 	})
 
