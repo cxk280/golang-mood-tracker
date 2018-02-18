@@ -71,6 +71,26 @@ func main() {
 		})
 	})
 
+	r.GET("/analytics", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "diary.html", gin.H{
+		})
+	})
+
+	r.GET("/dashboard", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "diary.html", gin.H{
+		})
+	})
+
+	r.GET("/diary", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "diary.html", gin.H{
+		})
+	})
+
+	r.GET("/feed", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "diary.html", gin.H{
+		})
+	})
+
 	r.NoRoute(func(c *gin.Context) {
 		c.HTML(404, "404.html", gin.H{})
 	})
