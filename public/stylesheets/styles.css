@@ -6,6 +6,7 @@
   text-align: center;
 }
 
-/*#how-you-feel {
-  text-align: center;
-}*/
+#how-you-feel {
+  height: 40vh;
+  border: 1px solid gray;
+}
