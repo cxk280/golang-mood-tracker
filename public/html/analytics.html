@@ -22,48 +22,43 @@
             <script>
                 function InitChart() {
                     let data = [{
-                        "sale": "202",
+                        "feeling": "5",
                         "month": "01/17"
                     }, {
-                        "sale": "215",
+                        "feeling": "5",
                         "month": "02/17"
                     }, {
-                        "sale": "215",
+                        "feeling": "7",
                         "month": "03/17"
                     }, {
-                        "sale": "215",
+                        "feeling": "2",
                         "month": "04/17"
                     }, {
-                        "sale": "215",
+                        "feeling": "9",
                         "month": "05/17"
                     }, {
-                        "sale": "215",
+                        "feeling": "4",
                         "month": "06/17"
                     }, {
-                        "sale": "215",
+                        "feeling": "9",
                         "month": "07/17"
                     }, {
-                        "sale": "215",
+                        "feeling": "9",
                         "month": "08/17"
                     }, {
-                        "sale": "215",
+                        "feeling": "10",
                         "month": "09/17"
                     }, {
-                        "sale": "215",
+                        "feeling": "1",
                         "month": "10/17"
                     }, {
-                        "sale": "215",
+                        "feeling": "6",
                         "month": "11/17"
                     }, {
-                        "sale": "215",
+                        "feeling": "5",
                         "month": "12/17"
                     }];
 
-                    // let monthNameFormat = d3.time.format("%d-%b");
-
-                    console.log("Today is: " + moment().format('YYYY') + "," + moment().format('M') + "," + moment().format('DD'));
-                    console.log("Date object shows: ",new Date());
-                    let today = new Date();
                     let sixMonthsAgo;
                     let yearSixMonthsAgo;
 
@@ -76,9 +71,15 @@
                       yearSixMonthsAgo = parseInt(moment().format('YYYY')) - 1;
                     };
 
-                    console.log("sixMonthsAgo: ",sixMonthsAgo);
-                    console.log("yearSixMonthsAgo: ",yearSixMonthsAgo);
+                    console.log('sixMonthsAgo: ',sixMonthsAgo);
+                    console.log('yearSixMonthsAgo: ',yearSixMonthsAgo);
 
+                    // let formatDate = d3.time.format("%B/%Y");
+
+                    // let xDomainStart = formatDate.parse(new Date(yearSixMonthsAgo, sixMonthsAgo, 1));
+                    // console.log('xDomainStart: ',xDomainStart);
+                    // let xDomainEnd = formatDate.parse(new Date());
+                    // console.log('xDomainEnd ',xDomainEnd);
 
                     let vis = d3.select("#visualisation"),
                         WIDTH = 1000,
@@ -110,19 +111,26 @@
                         .attr("class", "y axis")
                         .attr("transform", "translate(" + (MARGINS.left) + ",0)")
                         .call(yAxis);
-                    // let lineGen = d3.svg.line()
-                    //     .x(function(d) {
-                    //         return xScale(d.month);
-                    //     })
-                    //     .y(function(d) {
-                    //         return yScale(d.sale);
-                    //     })
-                    //     .interpolate("basis");
-                    // vis.append('svg:path')
-                    //     .attr('d', lineGen(data))
-                    //     .attr('stroke', 'green')
-                    //     .attr('stroke-width', 2)
-                    //     .attr('fill', 'none');
+
+
+                    let lineGen = d3.svg.line()
+                        .x(function(d) {
+                            //d.month is a string in format MM/YY"
+                            let formatDate = d3.time.format("%-m/%y");
+                            let monthData = formatDate.parse(d.month);
+                            return xScale(monthData);
+                        })
+                        .y(function(d) {
+                            console.log('d.feeling: ',d.feeling);
+                            //d.feeling is an integer from 1-10
+                            return yScale(parseInt(d.feeling));
+                        })
+                        .interpolate("basis");
+                    vis.append('svg:path')
+                        .attr('d', lineGen(data))
+                        .attr('stroke', 'green')
+                        .attr('stroke-width', 2)
+                        .attr('fill', 'none');
                 }
                 InitChart();
             </script>
