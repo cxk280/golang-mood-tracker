@@ -71,6 +71,11 @@ func main() {
 		})
 	})
 
+	r.GET("/signup", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "signup.html", gin.H{
+		})
+	})
+
 	r.GET("/analytics", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "analytics.html", gin.H{
 		})
