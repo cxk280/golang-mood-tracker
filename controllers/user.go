@@ -1,11 +1,16 @@
 package controllers
 
 import (
+
+  // "fmt"
+  // "log"
+
 	"golang-mood-tracker/forms"
 	"golang-mood-tracker/models"
 
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
+  "github.com/gin-gonic/gin/binding"
 )
 
 //UserController ...
@@ -37,15 +42,36 @@ func getSessionUserInfo(c *gin.Context) (userSessionInfo models.UserSessionInfo)
 
 //Signin ...
 func (ctrl UserController) Signin(c *gin.Context) {
+  // The line below is a struct
 	var signinForm forms.SigninForm
 
-	if c.BindJSON(&signinForm) != nil {
-		c.JSON(406, gin.H{"message": "Invalid form boo", "form": signinForm})
-		c.Abort()
-		return
-	}
+ //  fmt.Println("***************************")
+ //  fmt.Println("BEGIN PRINTING STUFF")
+ //  fmt.Println("***************************")
 
-	user, err := userModel.Signin(signinForm)
+ //  fmt.Println("fmt.Println(c.BindJSON(&signinForm)): ",c.BindJSON(&signinForm))
+ //  log.Println("log.Println(c.BindJSON(&signinForm)): ",c.BindJSON(&signinForm))
+
+ //  fmt.Println("***************************")
+ //  fmt.Println("END PRINTING STUFF")
+ //  fmt.Println("***************************")
+
+
+	// if c.BindJSON(&signinForm) != nil {
+	// 	c.JSON(406, gin.H{"message": "Invalid signin form", "form": signinForm})
+	// 	c.Abort()
+	// 	return
+	// }
+
+  user, err := userModel.Signin(signinForm)
+
+  if err := c.ShouldBindWith(&signinForm, binding.Form); err != nil {
+     c.JSON(406, gin.H{"message": "Invalid signin form", "form": signinForm})
+     c.Abort()
+     return
+  }
+
+
 	if err == nil {
 		session := sessions.Default(c)
 		session.Set("user_id", user.ID)
