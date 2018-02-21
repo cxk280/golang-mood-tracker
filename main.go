@@ -96,6 +96,14 @@ func main() {
 		})
 	})
 
+	// r.POST("/login", func(c *gin.Context) {
+	// 	//What do I need to put here?
+	// })
+
+	// r.POST("/signup", func(c *gin.Context) {
+	// 	//What do I need to put here?
+	// })
+
 	r.NoRoute(func(c *gin.Context) {
 		c.HTML(404, "404.html", gin.H{})
 	})

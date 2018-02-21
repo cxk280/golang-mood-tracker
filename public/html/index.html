@@ -20,12 +20,18 @@
     <center>
         <h3>Log In</h3>
         <br />
-        <input type="text" placeholder="Email"></input>
-        <br /><br />
-        <input type="text" placeholder="Password"></input>
-        <br /><br />
-        <button>Submit</button>
-        <br /><br />
+        <form action="/login" method="post">
+          <div>
+            <input type="text" placeholder="Email"></input>
+          </div>
+          <br /><br />
+          <div>
+            <input type="password" placeholder="Password"></input>
+          </div>
+          <br /><br />
+          <button>Submit</button>
+          <br /><br />
+        </form>
         <p>Don't have an account yet? <a href="/signup">Sign up</a>!</p>
         <br /> <br /><br />
     </center>
