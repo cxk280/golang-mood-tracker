@@ -12,6 +12,23 @@
 <body>
   {{ template "header.html" .}}
   <br /> <br /><br />
-  <p>This is the feed</p>
+  <h3>My Feed</h3>
+  <br />
+  <span class="col-4"></span>
+    <textarea class="col-4 textBox" id="statusUpdate" type="text" placeholder="Write a status update."></textarea>
+  <span class="col-4"></span>
+  <br /> <br /><br />
+  <div class="container">
+    <div class="col-12">
+      <div class="row">
+        <span class="col-2"></span>
+        <span class="col-8" id="feedBox">
+          <h3>Feed Box</h3>
+        </span>
+        <span class="col-2"></span>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>
