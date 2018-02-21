@@ -40,7 +40,7 @@ func (ctrl UserController) Signin(c *gin.Context) {
 	var signinForm forms.SigninForm
 
 	if c.BindJSON(&signinForm) != nil {
-		c.JSON(406, gin.H{"message": "Invalid form", "form": signinForm})
+		c.JSON(406, gin.H{"message": "Invalid form boo", "form": signinForm})
 		c.Abort()
 		return
 	}
@@ -65,7 +65,7 @@ func (ctrl UserController) Signup(c *gin.Context) {
 	var signupForm forms.SignupForm
 
 	if c.BindJSON(&signupForm) != nil {
-		c.JSON(406, gin.H{"message": "Invalid form", "form": signupForm})
+		c.JSON(406, gin.H{"message": "Invalid form boo", "form": signupForm})
 		c.Abort()
 		return
 	}

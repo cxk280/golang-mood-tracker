@@ -43,6 +43,10 @@ func main() {
 
 	v1 := r.Group("/v1")
 	{
+
+
+		// USE THESE CONTROLLERS FOR USER AUTH
+
 		/*** START USER ***/
 		user := new(controllers.UserController)
 
@@ -97,13 +101,14 @@ func main() {
 	})
 
 	r.POST("/login", func(c *gin.Context) {
-		//What do I need to put here?
-		// message := c.PostForm("loginForm")
-		// nick := c.DefaultPostForm("nick", "anonymous")
+		emailValue := c.PostForm("email");
+		passwordValue := c.PostForm("password");
 
 		c.JSON(200, gin.H{
 			"status":  "posted to login",
-			"message": "whoo"})
+			"message": "whoo",
+			"email": emailValue,
+			"password": passwordValue})
 	})
 
 	r.POST("/signup", func(c *gin.Context) {

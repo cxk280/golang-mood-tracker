@@ -22,14 +22,18 @@
         <br />
         <form action="/login" method="post" name="loginForm">
           <div>
-            <input type="text" placeholder="Email"></input>
+            <label>Email</label>
+            <br/>
+            <input type="text" placeholder="Email" name="email">
           </div>
           <br /><br />
           <div>
-            <input type="password" placeholder="Password"></input>
+            <label>Password</label>
+            <br/>
+            <input type="password" placeholder="Password" name="password">
           </div>
           <br /><br />
-          <button>Submit</button>
+          <input type="submit">
           <br /><br />
         </form>
         <p>Don't have an account yet? <a href="/signup">Sign up</a>!</p>

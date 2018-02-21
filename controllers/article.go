@@ -27,7 +27,7 @@ func (ctrl ArticleController) Create(c *gin.Context) {
 	var articleForm forms.ArticleForm
 
 	if c.BindJSON(&articleForm) != nil {
-		c.JSON(406, gin.H{"message": "Invalid form", "form": articleForm})
+		c.JSON(406, gin.H{"message": "Invalid form boo", "form": articleForm})
 		c.Abort()
 		return
 	}
