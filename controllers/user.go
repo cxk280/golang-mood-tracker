@@ -2,8 +2,8 @@ package controllers
 
 import (
 
-  // "fmt"
-  // "log"
+  "fmt"
+  "log"
 
 	"golang-mood-tracker/forms"
 	"golang-mood-tracker/models"
@@ -66,6 +66,9 @@ func (ctrl UserController) Signin(c *gin.Context) {
   user, err := userModel.Signin(signinForm)
 
   if err := c.ShouldBindWith(&signinForm, binding.Form); err != nil {
+    fmt.Println("***************************")
+    log.Println("err: ",err)
+    fmt.Println("***************************")
      c.JSON(406, gin.H{"message": "Invalid signin form", "form": signinForm})
      c.Abort()
      return
