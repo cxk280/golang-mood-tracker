@@ -112,11 +112,14 @@ func main() {
 	})
 
 	r.POST("/signup", func(c *gin.Context) {
-		//What do I need to put here?
+		emailValue := c.PostForm("email");
+		passwordValue := c.PostForm("password");
 
 		c.JSON(200, gin.H{
 			"status":  "posted to signup",
-			"message": "whoo"})
+			"message": "whoo",
+			"email": emailValue,
+			"password": passwordValue})
 	})
 
 	r.NoRoute(func(c *gin.Context) {
