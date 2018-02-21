@@ -5,9 +5,9 @@ import (
 	"net/http"
 	"runtime"
 
-	"github.com/Massad/gin-boilerplate/controllers"
-	"github.com/Massad/gin-boilerplate/db"
-
+	// "github.com/Massad/gin-boilerplate/controllers"
+	// "github.com/Massad/gin-boilerplate/db"
+	"~/code/golang-mood-tracker/controllers"
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 )
@@ -64,6 +64,8 @@ func main() {
 		v1.DELETE("/article/:id", article.Delete)
 	}
 
+	user := new(controllers.UserController)
+
 	r.LoadHTMLGlob("./public/html/*.html")
 
 	r.Static("/public", "./public")
@@ -100,16 +102,18 @@ func main() {
 		})
 	})
 
-	r.POST("/login", func(c *gin.Context) {
-		emailValue := c.PostForm("email");
-		passwordValue := c.PostForm("password");
+	// r.POST("/login", func(c *gin.Context) {
+		// emailValue := c.PostForm("email");
+		// passwordValue := c.PostForm("password");
 
-		c.JSON(200, gin.H{
-			"status":  "posted to login",
-			"message": "whoo",
-			"email": emailValue,
-			"password": passwordValue})
-	})
+		// c.JSON(200, gin.H{
+		// 	"status":  "posted to login",
+		// 	"message": "whoo",
+		// 	"email": emailValue,
+		// 	"password": passwordValue})
+	// })
+
+	r.POST("/login", user.Signin)
 
 	r.POST("/signup", func(c *gin.Context) {
 		emailValue := c.PostForm("email");

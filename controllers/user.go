@@ -1,100 +1,109 @@
-package controllers
+// package controllers
 
-import (
-	"github.com/Massad/gin-boilerplate/forms"
-	"github.com/Massad/gin-boilerplate/models"
+// import (
+// 	"github.com/Massad/gin-boilerplate/forms"
+// 	"github.com/Massad/gin-boilerplate/models"
 
-	"github.com/gin-gonic/contrib/sessions"
-	"github.com/gin-gonic/gin"
-)
+// 	"github.com/gin-gonic/contrib/sessions"
+// 	"github.com/gin-gonic/gin"
+// )
 
-//UserController ...
-type UserController struct{}
+// //UserController ...
+// type UserController struct{}
 
-var userModel = new(models.UserModel)
+// var userModel = new(models.UserModel)
 
-//getUserID ...
-func getUserID(c *gin.Context) int64 {
-	session := sessions.Default(c)
-	userID := session.Get("user_id")
-	if userID != nil {
-		return models.ConvertToInt64(userID)
-	}
-	return 0
-}
+// //getUserID ...
+// func getUserID(c *gin.Context) int64 {
+// 	session := sessions.Default(c)
+// 	userID := session.Get("user_id")
+// 	if userID != nil {
+// 		return models.ConvertToInt64(userID)
+// 	}
+// 	return 0
+// }
 
-//getSessionUserInfo ...
-func getSessionUserInfo(c *gin.Context) (userSessionInfo models.UserSessionInfo) {
-	session := sessions.Default(c)
-	userID := session.Get("user_id")
-	if userID != nil {
-		userSessionInfo.ID = models.ConvertToInt64(userID)
-		userSessionInfo.Name = session.Get("user_name").(string)
-		userSessionInfo.Email = session.Get("user_email").(string)
-	}
-	return userSessionInfo
-}
+// //getSessionUserInfo ...
+// func getSessionUserInfo(c *gin.Context) (userSessionInfo models.UserSessionInfo) {
+// 	session := sessions.Default(c)
+// 	userID := session.Get("user_id")
+// 	if userID != nil {
+// 		userSessionInfo.ID = models.ConvertToInt64(userID)
+// 		userSessionInfo.Name = session.Get("user_name").(string)
+// 		userSessionInfo.Email = session.Get("user_email").(string)
+// 	}
+// 	return userSessionInfo
+// }
 
-//Signin ...
-func (ctrl UserController) Signin(c *gin.Context) {
-	var signinForm forms.SigninForm
+// //Signin ...
+// func (ctrl UserController) Signin(c *gin.Context) {
+// 	var signinForm forms.SigninForm
 
-	if c.BindJSON(&signinForm) != nil {
-		c.JSON(406, gin.H{"message": "Invalid form boo", "form": signinForm})
-		c.Abort()
-		return
-	}
+// 	if c.BindJSON(&signinForm) != nil {
+// 		c.JSON(406, gin.H{"message": "Invalid form boo", "form": signinForm})
+// 		c.Abort()
+// 		return
+// 	}
 
-	user, err := userModel.Signin(signinForm)
-	if err == nil {
-		session := sessions.Default(c)
-		session.Set("user_id", user.ID)
-		session.Set("user_email", user.Email)
-		session.Set("user_name", user.Name)
-		session.Save()
+// 	user, err := userModel.Signin(signinForm)
+// 	if err == nil {
+// 		session := sessions.Default(c)
+// 		session.Set("user_id", user.ID)
+// 		session.Set("user_email", user.Email)
+// 		session.Set("user_name", user.Name)
+// 		session.Save()
 
-		c.JSON(200, gin.H{"message": "User signed in", "user": user})
-	} else {
-		c.JSON(406, gin.H{"message": "Invalid signin details", "error": err.Error()})
-	}
+// 		c.JSON(200, gin.H{"message": "User signed in", "user": user})
+// 	} else {
+// 		c.JSON(406, gin.H{"message": "Invalid signin details", "error": err.Error()})
+// 	}
 
-}
+// 		// emailValue := c.PostForm("email");
+// 		// passwordValue := c.PostForm("password");
 
-//Signup ...
-func (ctrl UserController) Signup(c *gin.Context) {
-	var signupForm forms.SignupForm
+// 		// c.JSON(200, gin.H{
+// 		// 	"status":  "posted to login",
+// 		// 	"message": "whoo",
+// 		// 	"email": emailValue,
+// 		// 	"password": passwordValue})
 
-	if c.BindJSON(&signupForm) != nil {
-		c.JSON(406, gin.H{"message": "Invalid form boo", "form": signupForm})
-		c.Abort()
-		return
-	}
+// }
 
-	user, err := userModel.Signup(signupForm)
+// //Signup ...
+// func (ctrl UserController) Signup(c *gin.Context) {
+// 	var signupForm forms.SignupForm
 
-	if err != nil {
-		c.JSON(406, gin.H{"message": err.Error()})
-		c.Abort()
-		return
-	}
+// 	if c.BindJSON(&signupForm) != nil {
+// 		c.JSON(406, gin.H{"message": "Invalid form boo", "form": signupForm})
+// 		c.Abort()
+// 		return
+// 	}
 
-	if user.ID > 0 {
-		session := sessions.Default(c)
-		session.Set("user_id", user.ID)
-		session.Set("user_email", user.Email)
-		session.Set("user_name", user.Name)
-		session.Save()
-		c.JSON(200, gin.H{"message": "Success signup", "user": user})
-	} else {
-		c.JSON(406, gin.H{"message": "Could not signup this user", "error": err.Error()})
-	}
+// 	user, err := userModel.Signup(signupForm)
 
-}
+// 	if err != nil {
+// 		c.JSON(406, gin.H{"message": err.Error()})
+// 		c.Abort()
+// 		return
+// 	}
 
-//Signout ...
-func (ctrl UserController) Signout(c *gin.Context) {
-	session := sessions.Default(c)
-	session.Clear()
-	session.Save()
-	c.JSON(200, gin.H{"message": "Signed out..."})
-}
+// 	if user.ID > 0 {
+// 		session := sessions.Default(c)
+// 		session.Set("user_id", user.ID)
+// 		session.Set("user_email", user.Email)
+// 		session.Set("user_name", user.Name)
+// 		session.Save()
+// 		c.JSON(200, gin.H{"message": "Success signup", "user": user})
+// 	} else {
+// 		c.JSON(406, gin.H{"message": "Could not signup this user", "error": err.Error()})
+// 	}
+
+// }
+
+// //Signout ...
+// func (ctrl UserController) Signout(c *gin.Context) {
+// 	session := sessions.Default(c)
+// 	session.Clear()
+// 	session.Save()
+// 	c.JSON(200, gin.H{"message": "Signed out..."})
+// }
