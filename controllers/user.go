@@ -4,6 +4,8 @@ import (
 
   "fmt"
   "log"
+  "regexp"
+  "unicode"
 
 	"golang-mood-tracker/forms"
 	"golang-mood-tracker/models"
@@ -40,38 +42,55 @@ func getSessionUserInfo(c *gin.Context) (userSessionInfo models.UserSessionInfo)
 	return userSessionInfo
 }
 
+func verifyPassword(s string) (sevenOrMore, number, upper, special bool) {
+    letters := 0
+    for _, s := range s {
+        switch {
+        case unicode.IsNumber(s):
+            number = true
+        case unicode.IsUpper(s):
+            upper = true
+            letters++
+        case unicode.IsPunct(s) || unicode.IsSymbol(s):
+            special = true
+        case unicode.IsLetter(s) || s == ' ':
+            letters++
+        default:
+        		fmt.Println("password field is not an password")
+            return false, false, false, false
+        }
+    }
+    sevenOrMore = letters >= 7
+    if sevenOrMore == true {
+    	fmt.Println("password field is an accepted password")
+    } else {
+    	fmt.Println("password field has too few letters")
+    }
+    return
+	}
+
 //Signin ...
 func (ctrl UserController) Signin(c *gin.Context) {
-  // The line below is a struct
+
 	var signinForm forms.SigninForm
-
- //  fmt.Println("***************************")
- //  fmt.Println("BEGIN PRINTING STUFF")
- //  fmt.Println("***************************")
-
- //  fmt.Println("fmt.Println(c.BindJSON(&signinForm)): ",c.BindJSON(&signinForm))
- //  log.Println("log.Println(c.BindJSON(&signinForm)): ",c.BindJSON(&signinForm))
-
- //  fmt.Println("***************************")
- //  fmt.Println("END PRINTING STUFF")
- //  fmt.Println("***************************")
-
-
-	// if c.BindJSON(&signinForm) != nil {
-	// 	c.JSON(406, gin.H{"message": "Invalid signin form", "form": signinForm})
-	// 	c.Abort()
-	// 	return
-	// }
-
   user, err := userModel.Signin(signinForm)
+
+  // The if conditional below validates if the email is an email or not
+  if m, _ := regexp.MatchString(`^([\w\.\_]{2,10})@(\w{1,}).([a-z]{2,4})$`, c.PostForm("email")); !m {
+    fmt.Println("email field is not an email")
+  }	else {
+    fmt.Println("email field is an email")
+  }
+
+  verifyPassword(c.PostForm("password"))
 
   if err := c.ShouldBindWith(&signinForm, binding.Form); err != nil {
     fmt.Println("***************************")
     log.Println("err: ",err)
     fmt.Println("***************************")
-     c.JSON(406, gin.H{"message": "Invalid signin form", "form": signinForm})
-     c.Abort()
-     return
+	  c.JSON(406, gin.H{"message": "Invalid signin form", "form": signinForm})
+	  c.Abort()
+	  return
   }
 
 
