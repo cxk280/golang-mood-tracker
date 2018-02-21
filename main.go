@@ -5,9 +5,8 @@ import (
 	"net/http"
 	"runtime"
 
-	// "github.com/Massad/gin-boilerplate/controllers"
-	// "github.com/Massad/gin-boilerplate/db"
-	"~/code/golang-mood-tracker/controllers"
+	"github.com/Massad/gin-boilerplate/db"
+	"golang-mood-tracker/controllers"
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 )
