@@ -9,11 +9,11 @@
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="./public/stylesheets/styles.css">
 </head>
-<body>
+<body class="bg-primary">
   {{ template "header.html" .}}
   <br /> <br /><br />
   <center>
-    <h3>How do you feel today?</h3>
+    <h3 class="text-white">How do you feel today?</h3>
   </center>
   <br />
   <br />
@@ -31,12 +31,16 @@
   </center>
   <br />
   <br />
-  <span class="col-4"></span>
-    <textarea class="col-4 textBox" type="text" placeholder="Write notes here."></textarea>
-  <span class="col-4"></span>
+  <center>
+    <span class="col-4"></span>
+      <textarea class="col-4 textBox" type="text" placeholder="Write notes here."></textarea>
+    <span class="col-4"></span>
+  </center>
   <br />
   <br />
-  <button>Submit</button>
+  <center>
+    <button>Submit</button>
+  </center>
   <br /> <br /><br />
   {{ template "footer.html" .}}
 </body>

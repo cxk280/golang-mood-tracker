@@ -20,3 +20,11 @@
 #statusUpdate {
   height: 10vh;
 }
+
+#diary-body {
+  background-color: #007bff!important;
+}
+
+#calendar .fc-center h2{
+  color: white;
+}

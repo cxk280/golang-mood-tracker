@@ -10,7 +10,7 @@
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="./public/stylesheets/styles.css">
 </head>
-<body>
+<body class="bg-primary">
   {{ template "header.html" .}}
   <br /> <br /><br />
   <div class="container">
@@ -52,16 +52,6 @@
                       sixMonthsAgo = parseInt(moment().format('M')) + 6;
                       yearSixMonthsAgo = parseInt(moment().format('YYYY')) - 1;
                     };
-
-                    console.log('sixMonthsAgo: ',sixMonthsAgo);
-                    console.log('yearSixMonthsAgo: ',yearSixMonthsAgo);
-
-                    // let formatDate = d3.time.format("%B/%Y");
-
-                    // let xDomainStart = formatDate.parse(new Date(yearSixMonthsAgo, sixMonthsAgo, 1));
-                    // console.log('xDomainStart: ',xDomainStart);
-                    // let xDomainEnd = formatDate.parse(new Date());
-                    // console.log('xDomainEnd ',xDomainEnd);
 
                     let vis = d3.select("#visualisation"),
                         WIDTH = 1000,

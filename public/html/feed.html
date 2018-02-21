@@ -9,20 +9,24 @@
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="./public/stylesheets/styles.css">
 </head>
-<body>
+<body class="bg-primary">
   {{ template "header.html" .}}
   <br /> <br /><br />
-  <h3>My Feed</h3>
+  <center>
+    <h3 class="text-white">My Feed</h3>
+  </center>
   <br />
-  <span class="col-4"></span>
-    <textarea class="col-4 textBox" id="statusUpdate" type="text" placeholder="Write a status update."></textarea>
-  <span class="col-4"></span>
+  <center>
+    <span class="col-4"></span>
+      <textarea class="col-4 textBox" id="statusUpdate" type="text" placeholder="Write a status update."></textarea>
+    <span class="col-4"></span>
+  </center>
   <br /> <br /><br />
   <div class="container">
     <div class="col-12">
       <div class="row">
         <span class="col-2"></span>
-        <span class="col-8" id="feedBox">
+        <span class="col-8 bg-light" id="feedBox">
           <h3>Feed Box</h3>
           <br />
           <h4>Username 1:</h4>
