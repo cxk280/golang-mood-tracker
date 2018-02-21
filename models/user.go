@@ -4,8 +4,8 @@ import (
 	"errors"
 	"time"
 
-	"github.com/Massad/gin-boilerplate/db"
-	"github.com/Massad/gin-boilerplate/forms"
+	"golang-mood-tracker/db"
+	"golang-mood-tracker/forms"
 
 	"golang.org/x/crypto/bcrypt"
 )

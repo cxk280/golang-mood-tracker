@@ -3,8 +3,8 @@ package controllers
 import (
 	"strconv"
 
-	"github.com/Massad/gin-boilerplate/forms"
-	"github.com/Massad/gin-boilerplate/models"
+	"golang-mood-tracker/forms"
+	"golang-mood-tracker/models"
 
 	"github.com/gin-gonic/gin"
 )
