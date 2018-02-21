@@ -96,13 +96,23 @@ func main() {
 		})
 	})
 
-	// r.POST("/login", func(c *gin.Context) {
-	// 	//What do I need to put here?
-	// })
+	r.POST("/login", func(c *gin.Context) {
+		//What do I need to put here?
+		// message := c.PostForm("loginForm")
+		// nick := c.DefaultPostForm("nick", "anonymous")
 
-	// r.POST("/signup", func(c *gin.Context) {
-	// 	//What do I need to put here?
-	// })
+		c.JSON(200, gin.H{
+			"status":  "posted to login",
+			"message": "whoo"})
+	})
+
+	r.POST("/signup", func(c *gin.Context) {
+		//What do I need to put here?
+
+		c.JSON(200, gin.H{
+			"status":  "posted to signup",
+			"message": "whoo"})
+	})
 
 	r.NoRoute(func(c *gin.Context) {
 		c.HTML(404, "404.html", gin.H{})
