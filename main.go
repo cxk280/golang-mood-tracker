@@ -114,16 +114,20 @@ func main() {
 
 	r.POST("/login", user.Signin)
 
-	r.POST("/signup", func(c *gin.Context) {
-		emailValue := c.PostForm("email");
-		passwordValue := c.PostForm("password");
+	// r.POST("/signup", func(c *gin.Context) {
+	// 	emailValue := c.PostForm("email");
+	// 	passwordValue := c.PostForm("password");
 
-		c.JSON(200, gin.H{
-			"status":  "posted to signup",
-			"message": "whoo",
-			"email": emailValue,
-			"password": passwordValue})
-	})
+	// 	c.JSON(200, gin.H{
+	// 		"status":  "posted to signup",
+	// 		"message": "whoo",
+	// 		"email": emailValue,
+	// 		"password": passwordValue})
+	// })
+
+	r.POST("/signup", user.Signup)
+
+	r.POST("/signout", user.Signout)
 
 	r.NoRoute(func(c *gin.Context) {
 		c.HTML(404, "404.html", gin.H{})
