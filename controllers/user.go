@@ -44,10 +44,10 @@ func getSessionUserInfo(c *gin.Context) (userSessionInfo models.UserSessionInfo)
 func (ctrl UserController) Signin(c *gin.Context) {
 
 	var signinForm forms.SigninForm
-  user, err := userModel.Signin(signinForm)
 
   if err := c.ShouldBindWith(&signinForm, binding.Form); err != nil {
     fmt.Println("***************************")
+    fmt.Println("This is inside if")
     log.Println("err: ",err)
     log.Println("signinForm: ",signinForm)
     fmt.Println("***************************")
@@ -56,11 +56,13 @@ func (ctrl UserController) Signin(c *gin.Context) {
 	  return
   }
 
+  user, err := userModel.Signin(signinForm)
+
   fmt.Println("***************************")
+  fmt.Println("This is outside if")
   log.Println("err: ",err)
   log.Println("signinForm: ",signinForm)
   fmt.Println("***************************")
-
 
 	if err == nil {
 		session := sessions.Default(c)
@@ -87,13 +89,25 @@ func (ctrl UserController) Signin(c *gin.Context) {
 
 //Signup ...
 func (ctrl UserController) Signup(c *gin.Context) {
+
 	var signupForm forms.SignupForm
 
-	if c.BindJSON(&signupForm) != nil {
-		c.JSON(406, gin.H{"message": "Invalid form boo", "form": signupForm})
-		c.Abort()
-		return
-	}
+	// if c.BindJSON(&signupForm) != nil {
+	// 	c.JSON(406, gin.H{"message": "Invalid form boo", "form": signupForm})
+	// 	c.Abort()
+	// 	return
+	// }
+
+	if err := c.ShouldBindWith(&signupForm, binding.Form); err != nil {
+    fmt.Println("***************************")
+    fmt.Println("This is inside if")
+    log.Println("err: ",err)
+    log.Println("signinForm: ",signupForm)
+    fmt.Println("***************************")
+	  c.JSON(406, gin.H{"message": "Invalid signin form", "form": signupForm})
+	  c.Abort()
+	  return
+  }
 
 	user, err := userModel.Signup(signupForm)
 
