@@ -101,29 +101,7 @@ func main() {
 		})
 	})
 
-	// r.POST("/login", func(c *gin.Context) {
-		// emailValue := c.PostForm("email");
-		// passwordValue := c.PostForm("password");
-
-		// c.JSON(200, gin.H{
-		// 	"status":  "posted to login",
-		// 	"message": "whoo",
-		// 	"email": emailValue,
-		// 	"password": passwordValue})
-	// })
-
 	r.POST("/login", user.Signin)
-
-	// r.POST("/signup", func(c *gin.Context) {
-	// 	emailValue := c.PostForm("email");
-	// 	passwordValue := c.PostForm("password");
-
-	// 	c.JSON(200, gin.H{
-	// 		"status":  "posted to signup",
-	// 		"message": "whoo",
-	// 		"email": emailValue,
-	// 		"password": passwordValue})
-	// })
 
 	r.POST("/signup", user.Signup)
 

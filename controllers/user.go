@@ -92,19 +92,13 @@ func (ctrl UserController) Signup(c *gin.Context) {
 
 	var signupForm forms.SignupForm
 
-	// if c.BindJSON(&signupForm) != nil {
-	// 	c.JSON(406, gin.H{"message": "Invalid form boo", "form": signupForm})
-	// 	c.Abort()
-	// 	return
-	// }
-
 	if err := c.ShouldBindWith(&signupForm, binding.Form); err != nil {
     fmt.Println("***************************")
     fmt.Println("This is inside if")
     log.Println("err: ",err)
     log.Println("signinForm: ",signupForm)
     fmt.Println("***************************")
-	  c.JSON(406, gin.H{"message": "Invalid signin form", "form": signupForm})
+	  c.JSON(406, gin.H{"message": "Invalid signup form", "form": signupForm})
 	  c.Abort()
 	  return
   }
