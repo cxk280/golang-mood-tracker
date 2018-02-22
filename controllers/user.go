@@ -4,7 +4,7 @@ import (
 
   "fmt"
   "log"
-  "regexp"
+  // "regexp"
   "unicode"
 
 	"golang-mood-tracker/forms"
@@ -14,7 +14,7 @@ import (
 	"github.com/gin-gonic/gin"
   "github.com/gin-gonic/gin/binding"
 
-  "github.com/go-ozzo/ozzo-validation"
+  // "github.com/go-ozzo/ozzo-validation"
 	// "github.com/go-ozzo/ozzo-validation/is"
 )
 
@@ -78,11 +78,11 @@ func (ctrl UserController) Signin(c *gin.Context) {
 	var signinForm forms.SigninForm
   user, err := userModel.Signin(signinForm)
 
-  err2 := validation.Validate(c.PostForm("password"),
-		validation.Required,       // not empty
-		validation.Length(5, 100), // length between 5 and 100
-	)
-	fmt.Println("err2: ",err2)
+ //  err2 := validation.Validate(c.PostForm("password"),
+	// 	validation.Required,       // not empty
+	// 	validation.Length(5, 100), // length between 5 and 100
+	// )
+	// fmt.Println("err2: ",err2)
 
   // The if conditional below validates if the email is an email or not
   // if m, _ := regexp.MatchString(`^([\w\.\_]{2,10})@(\w{1,}).([a-z]{2,4})$`, c.PostForm("email")); !m {
@@ -93,15 +93,20 @@ func (ctrl UserController) Signin(c *gin.Context) {
 
   // verifyPassword(c.PostForm("password"))
 
-  //The line below means that err := c.ShouldBindWith(&signinForm, binding.Form) is only scoped within the if statement
   if err := c.ShouldBindWith(&signinForm, binding.Form); err != nil {
     fmt.Println("***************************")
     log.Println("err: ",err)
+    log.Println("signinForm: ",signinForm)
     fmt.Println("***************************")
 	  c.JSON(406, gin.H{"message": "Invalid signin form", "form": signinForm})
 	  c.Abort()
 	  return
   }
+
+  fmt.Println("***************************")
+  log.Println("err: ",err)
+  log.Println("signinForm: ",signinForm)
+  fmt.Println("***************************")
 
 
 	if err == nil {
