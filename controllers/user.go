@@ -114,16 +114,6 @@ func (ctrl UserController) Signup(c *gin.Context) {
 
 	if user.ID > 0 {
 
-		//This session section is causing the runtime error with "invalid memory address or nil pointer dereference"
-		//Maybe instead of using session I should just to login page and have them log in?
-		// session := sessions.Default(c)
-		// session.Set("user_id", user.ID)
-		// session.Set("user_email", user.Email)
-		// session.Set("user_name", user.Name)
-		// session.Save()
-
-		// c.JSON(200, gin.H{"message": "Success signup", "user": user})
-
 		c.Redirect(http.StatusMovedPermanently, "/")
 
 	} else {
