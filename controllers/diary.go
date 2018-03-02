@@ -1,149 +1,149 @@
 package controllers
 
-// import (
-//   "strconv"
+import (
+  "strconv"
 
-//   "golang-mood-tracker/forms"
-//   "golang-mood-tracker/models"
+  "golang-mood-tracker/forms"
+  "golang-mood-tracker/models"
 
-//   "github.com/gin-gonic/gin"
-// )
+  "github.com/gin-gonic/gin"
+)
 
-// //ArticleController ...
-// type ArticleController struct{}
+//DiaryController ...
+type DiaryController struct{}
 
-// var articleModel = new(models.ArticleModel)
+var diaryModel = new(models.DiaryModel)
 
-// //Create ...
-// func (ctrl ArticleController) Create(c *gin.Context) {
-//   userID := getUserID(c)
+//Create ...
+func (ctrl DiaryController) Create(c *gin.Context) {
+  userID := getUserID(c)
 
-//   if userID == 0 {
-//     c.JSON(403, gin.H{"message": "Please login first"})
-//     c.Abort()
-//     return
-//   }
+  if userID == 0 {
+    c.JSON(403, gin.H{"message": "Please login first"})
+    c.Abort()
+    return
+  }
 
-//   var articleForm forms.ArticleForm
+  var diaryForm forms.DiaryForm
 
-//   if c.BindJSON(&articleForm) != nil {
-//     c.JSON(406, gin.H{"message": "Invalid form boo", "form": articleForm})
-//     c.Abort()
-//     return
-//   }
+  if c.BindJSON(&diaryForm) != nil {
+    c.JSON(406, gin.H{"message": "Invalid form boo", "form": diaryForm})
+    c.Abort()
+    return
+  }
 
-//   articleID, err := articleModel.Create(userID, articleForm)
+  diaryID, err := diaryModel.Create(userID, diaryForm)
 
-//   if articleID > 0 && err != nil {
-//     c.JSON(406, gin.H{"message": "Article could not be created", "error": err.Error()})
-//     c.Abort()
-//     return
-//   }
+  if diaryID > 0 && err != nil {
+    c.JSON(406, gin.H{"message": "diary could not be created", "error": err.Error()})
+    c.Abort()
+    return
+  }
 
-//   c.JSON(200, gin.H{"message": "Article created", "id": articleID})
-// }
+  c.JSON(200, gin.H{"message": "diary created", "id": diaryID})
+}
 
-// //All ...
-// func (ctrl ArticleController) All(c *gin.Context) {
-//   userID := getUserID(c)
+//All ...
+func (ctrl DiaryController) All(c *gin.Context) {
+  userID := getUserID(c)
 
-//   if userID == 0 {
-//     c.JSON(403, gin.H{"message": "Please login first"})
-//     c.Abort()
-//     return
-//   }
+  if userID == 0 {
+    c.JSON(403, gin.H{"message": "Please login first"})
+    c.Abort()
+    return
+  }
 
-//   data, err := articleModel.All(userID)
+  data, err := diaryModel.All(userID)
 
-//   if err != nil {
-//     c.JSON(406, gin.H{"Message": "Could not get the articles", "error": err.Error()})
-//     c.Abort()
-//     return
-//   }
+  if err != nil {
+    c.JSON(406, gin.H{"Message": "Could not get the diarys", "error": err.Error()})
+    c.Abort()
+    return
+  }
 
-//   c.JSON(200, gin.H{"data": data})
-// }
+  c.JSON(200, gin.H{"data": data})
+}
 
-// //One ...
-// func (ctrl ArticleController) One(c *gin.Context) {
-//   userID := getUserID(c)
+//One ...
+func (ctrl DiaryController) One(c *gin.Context) {
+  userID := getUserID(c)
 
-//   if userID == 0 {
-//     c.JSON(403, gin.H{"message": "Please login first"})
-//     c.Abort()
-//     return
-//   }
+  if userID == 0 {
+    c.JSON(403, gin.H{"message": "Please login first"})
+    c.Abort()
+    return
+  }
 
-//   id := c.Param("id")
+  id := c.Param("id")
 
-//   if id, err := strconv.ParseInt(id, 10, 64); err == nil {
+  if id, err := strconv.ParseInt(id, 10, 64); err == nil {
 
-//     data, err := articleModel.One(userID, id)
-//     if err != nil {
-//       c.JSON(404, gin.H{"Message": "Article not found", "error": err.Error()})
-//       c.Abort()
-//       return
-//     }
-//     c.JSON(200, gin.H{"data": data})
-//   } else {
-//     c.JSON(404, gin.H{"Message": "Invalid parameter"})
-//   }
-// }
+    data, err := diaryModel.One(userID, id)
+    if err != nil {
+      c.JSON(404, gin.H{"Message": "diary not found", "error": err.Error()})
+      c.Abort()
+      return
+    }
+    c.JSON(200, gin.H{"data": data})
+  } else {
+    c.JSON(404, gin.H{"Message": "Invalid parameter"})
+  }
+}
 
-// //Update ...
-// func (ctrl ArticleController) Update(c *gin.Context) {
-//   userID := getUserID(c)
+//Update ...
+func (ctrl DiaryController) Update(c *gin.Context) {
+  userID := getUserID(c)
 
-//   if userID == 0 {
-//     c.JSON(403, gin.H{"message": "Please login first"})
-//     c.Abort()
-//     return
-//   }
+  if userID == 0 {
+    c.JSON(403, gin.H{"message": "Please login first"})
+    c.Abort()
+    return
+  }
 
-//   id := c.Param("id")
-//   if id, err := strconv.ParseInt(id, 10, 64); err == nil {
+  id := c.Param("id")
+  if id, err := strconv.ParseInt(id, 10, 64); err == nil {
 
-//     var articleForm forms.ArticleForm
+    var diaryForm forms.DiaryForm
 
-//     if c.BindJSON(&articleForm) != nil {
-//       c.JSON(406, gin.H{"message": "Invalid parameters", "form": articleForm})
-//       c.Abort()
-//       return
-//     }
+    if c.BindJSON(&diaryForm) != nil {
+      c.JSON(406, gin.H{"message": "Invalid parameters", "form": diaryForm})
+      c.Abort()
+      return
+    }
 
-//     err := articleModel.Update(userID, id, articleForm)
-//     if err != nil {
-//       c.JSON(406, gin.H{"Message": "Article could not be updated", "error": err.Error()})
-//       c.Abort()
-//       return
-//     }
-//     c.JSON(200, gin.H{"message": "Article updated"})
-//   } else {
-//     c.JSON(404, gin.H{"Message": "Invalid parameter", "error": err.Error()})
-//   }
-// }
+    err := diaryModel.Update(userID, id, diaryForm)
+    if err != nil {
+      c.JSON(406, gin.H{"Message": "diary could not be updated", "error": err.Error()})
+      c.Abort()
+      return
+    }
+    c.JSON(200, gin.H{"message": "diary updated"})
+  } else {
+    c.JSON(404, gin.H{"Message": "Invalid parameter", "error": err.Error()})
+  }
+}
 
-// //Delete ...
-// func (ctrl ArticleController) Delete(c *gin.Context) {
-//   userID := getUserID(c)
+//Delete ...
+func (ctrl DiaryController) Delete(c *gin.Context) {
+  userID := getUserID(c)
 
-//   if userID == 0 {
-//     c.JSON(403, gin.H{"message": "Please login first"})
-//     c.Abort()
-//     return
-//   }
+  if userID == 0 {
+    c.JSON(403, gin.H{"message": "Please login first"})
+    c.Abort()
+    return
+  }
 
-//   id := c.Param("id")
-//   if id, err := strconv.ParseInt(id, 10, 64); err == nil {
+  id := c.Param("id")
+  if id, err := strconv.ParseInt(id, 10, 64); err == nil {
 
-//     err := articleModel.Delete(userID, id)
-//     if err != nil {
-//       c.JSON(406, gin.H{"Message": "Article could not be deleted", "error": err.Error()})
-//       c.Abort()
-//       return
-//     }
-//     c.JSON(200, gin.H{"message": "Article deleted"})
-//   } else {
-//     c.JSON(404, gin.H{"Message": "Invalid parameter"})
-//   }
-// }
+    err := diaryModel.Delete(userID, id)
+    if err != nil {
+      c.JSON(406, gin.H{"Message": "diary could not be deleted", "error": err.Error()})
+      c.Abort()
+      return
+    }
+    c.JSON(200, gin.H{"message": "diary deleted"})
+  } else {
+    c.JSON(404, gin.H{"Message": "Invalid parameter"})
+  }
+}
