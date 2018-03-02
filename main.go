@@ -43,9 +43,6 @@ func main() {
 	v1 := r.Group("/v1")
 	{
 
-
-		// USE THESE CONTROLLERS FOR USER AUTH
-
 		/*** START USER ***/
 		user := new(controllers.UserController)
 
@@ -63,7 +60,12 @@ func main() {
 		v1.DELETE("/article/:id", article.Delete)
 	}
 
-	user := new(controllers.UserController)
+	user 				:= new(controllers.UserController)
+	analytics 	:= new(controllers.AnalyticsController)
+	// dashboard 	:= new(controllers.DashboardController)
+	// diary 			:= new(controllers.DiaryController)
+	// feed 				:= new(controllers.feedController)
+	// index 			:= new(controllers.indexController)
 
 	r.LoadHTMLGlob("./public/html/*.html")
 
@@ -81,15 +83,19 @@ func main() {
 		})
 	})
 
-	r.GET("/analytics", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "analytics.html", gin.H{
-		})
-	})
+	// r.GET("/analytics", func(c *gin.Context) {
+	// 	c.HTML(http.StatusOK, "analytics.html", gin.H{
+	// 	})
+	// })
 
-	r.GET("/dashboard", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "dashboard.html", gin.H{
-		})
-	})
+	r.GET("/analytics", analytics.All)
+
+	// r.GET("/dashboard", func(c *gin.Context) {
+	// 	c.HTML(http.StatusOK, "dashboard.html", gin.H{
+	// 	})
+	// })
+
+	r.GET("/dashboard", dashboard.All)
 
 	r.GET("/diary", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "diary.html", gin.H{

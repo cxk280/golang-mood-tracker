@@ -2,8 +2,8 @@ package controllers
 
 import (
 
-  "fmt"
-  "log"
+  // "fmt"
+  // "log"
   "net/http"
 
 	"golang-mood-tracker/forms"
