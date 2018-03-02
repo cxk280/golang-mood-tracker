@@ -64,7 +64,7 @@ func main() {
 	analytics 	:= new(controllers.AnalyticsController)
 	dashboard 	:= new(controllers.DashboardController)
 	diary 			:= new(controllers.DiaryController)
-	// feed 				:= new(controllers.feedController)
+	feed 				:= new(controllers.FeedController)
 	// index 			:= new(controllers.indexController)
 
 	r.LoadHTMLGlob("./public/html/*.html")
@@ -87,17 +87,14 @@ func main() {
 
 	r.GET("/dashboard", dashboard.All)
 
-	// r.GET("/diary", func(c *gin.Context) {
-	// 	c.HTML(http.StatusOK, "diary.html", gin.H{
+	r.GET("/diary", diary.All)
+
+	// r.GET("/feed", func(c *gin.Context) {
+	// 	c.HTML(http.StatusOK, "feed.html", gin.H{
 	// 	})
 	// })
 
-	r.GET("/diary", diary.All)
-
-	r.GET("/feed", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "feed.html", gin.H{
-		})
-	})
+	r.GET("/feed", feed.All)
 
 	r.POST("/login", user.Signin)
 
