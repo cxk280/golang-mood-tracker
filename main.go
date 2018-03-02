@@ -62,8 +62,8 @@ func main() {
 
 	user 				:= new(controllers.UserController)
 	analytics 	:= new(controllers.AnalyticsController)
-	// dashboard 	:= new(controllers.DashboardController)
-	// diary 			:= new(controllers.DiaryController)
+	dashboard 	:= new(controllers.DashboardController)
+	diary 			:= new(controllers.DiaryController)
 	// feed 				:= new(controllers.feedController)
 	// index 			:= new(controllers.indexController)
 
@@ -83,24 +83,16 @@ func main() {
 		})
 	})
 
-	// r.GET("/analytics", func(c *gin.Context) {
-	// 	c.HTML(http.StatusOK, "analytics.html", gin.H{
-	// 	})
-	// })
-
 	r.GET("/analytics", analytics.All)
-
-	// r.GET("/dashboard", func(c *gin.Context) {
-	// 	c.HTML(http.StatusOK, "dashboard.html", gin.H{
-	// 	})
-	// })
 
 	r.GET("/dashboard", dashboard.All)
 
-	r.GET("/diary", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "diary.html", gin.H{
-		})
-	})
+	// r.GET("/diary", func(c *gin.Context) {
+	// 	c.HTML(http.StatusOK, "diary.html", gin.H{
+	// 	})
+	// })
+
+	r.GET("/diary", diary.All)
 
 	r.GET("/feed", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "feed.html", gin.H{
