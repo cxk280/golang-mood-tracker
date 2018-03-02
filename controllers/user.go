@@ -47,23 +47,12 @@ func (ctrl UserController) Signin(c *gin.Context) {
 	var signinForm forms.SigninForm
 
   if err := c.ShouldBindWith(&signinForm, binding.Form); err != nil {
-    fmt.Println("***************************")
-    fmt.Println("This is inside if")
-    log.Println("err: ",err)
-    log.Println("signinForm: ",signinForm)
-    fmt.Println("***************************")
 	  c.JSON(406, gin.H{"message": "Invalid signin form", "form": signinForm})
 	  c.Abort()
 	  return
   }
 
   user, err := userModel.Signin(signinForm)
-
-  fmt.Println("***************************")
-  fmt.Println("This is outside if")
-  log.Println("err: ",err)
-  log.Println("signinForm: ",signinForm)
-  fmt.Println("***************************")
 
 	if err == nil {
 		session := sessions.Default(c)
@@ -80,12 +69,6 @@ func (ctrl UserController) Signin(c *gin.Context) {
 		// emailValue := c.PostForm("email");
 		// passwordValue := c.PostForm("password");
 
-		// c.JSON(200, gin.H{
-		// 	"status":  "posted to login",
-		// 	"message": "whoo",
-		// 	"email": emailValue,
-		// 	"password": passwordValue})
-
 }
 
 //Signup ...
@@ -94,11 +77,6 @@ func (ctrl UserController) Signup(c *gin.Context) {
 	var signupForm forms.SignupForm
 
 	if err := c.ShouldBindWith(&signupForm, binding.Form); err != nil {
-    fmt.Println("***************************")
-    fmt.Println("This is inside if")
-    log.Println("err: ",err)
-    log.Println("signinForm: ",signupForm)
-    fmt.Println("***************************")
 	  c.JSON(406, gin.H{"message": "Invalid signup form", "form": signupForm})
 	  c.Abort()
 	  return
