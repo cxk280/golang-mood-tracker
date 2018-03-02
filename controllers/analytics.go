@@ -9,42 +9,42 @@ import (
   "github.com/gin-gonic/gin"
 )
 
-//ArticleController ...
-type ArticleController struct{}
+//AnalyticsController ...
+type AnalyticsController struct{}
 
-var articleModel = new(models.ArticleModel)
+var analyticsModel = new(models.AnalyticsModel)
 
 //Create ...
-func (ctrl ArticleController) Create(c *gin.Context) {
+func (ctrl AnalyticsController) Create(c *gin.Context) {
   userID := getUserID(c)
-
+f
   if userID == 0 {
     c.JSON(403, gin.H{"message": "Please login first"})
     c.Abort()
     return
   }
 
-  var articleForm forms.ArticleForm
+  var analyticsForm forms.AnalyticsForm
 
-  if c.BindJSON(&articleForm) != nil {
-    c.JSON(406, gin.H{"message": "Invalid form boo", "form": articleForm})
+  if c.BindJSON(&analyticsForm) != nil {
+    c.JSON(406, gin.H{"message": "Invalid form boo", "form": analyticsForm})
     c.Abort()
     return
   }
 
-  articleID, err := articleModel.Create(userID, articleForm)
+  analyticsID, err := analyticsModel.Create(userID, analyticsForm)
 
-  if articleID > 0 && err != nil {
-    c.JSON(406, gin.H{"message": "Article could not be created", "error": err.Error()})
+  if analyticsID > 0 && err != nil {
+    c.JSON(406, gin.H{"message": "analytics could not be created", "error": err.Error()})
     c.Abort()
     return
   }
 
-  c.JSON(200, gin.H{"message": "Article created", "id": articleID})
+  c.JSON(200, gin.H{"message": "analytics created", "id": analyticsID})
 }
 
 //All ...
-func (ctrl ArticleController) All(c *gin.Context) {
+func (ctrl AnalyticsController) All(c *gin.Context) {
   userID := getUserID(c)
 
   if userID == 0 {
@@ -53,10 +53,10 @@ func (ctrl ArticleController) All(c *gin.Context) {
     return
   }
 
-  data, err := articleModel.All(userID)
+  data, err := analyticsModel.All(userID)
 
   if err != nil {
-    c.JSON(406, gin.H{"Message": "Could not get the articles", "error": err.Error()})
+    c.JSON(406, gin.H{"Message": "Could not get the analytics", "error": err.Error()})
     c.Abort()
     return
   }
@@ -65,7 +65,7 @@ func (ctrl ArticleController) All(c *gin.Context) {
 }
 
 //One ...
-func (ctrl ArticleController) One(c *gin.Context) {
+func (ctrl AnalyticsController) One(c *gin.Context) {
   userID := getUserID(c)
 
   if userID == 0 {
@@ -78,9 +78,9 @@ func (ctrl ArticleController) One(c *gin.Context) {
 
   if id, err := strconv.ParseInt(id, 10, 64); err == nil {
 
-    data, err := articleModel.One(userID, id)
+    data, err := analyticsModel.One(userID, id)
     if err != nil {
-      c.JSON(404, gin.H{"Message": "Article not found", "error": err.Error()})
+      c.JSON(404, gin.H{"Message": "analytics not found", "error": err.Error()})
       c.Abort()
       return
     }
@@ -91,7 +91,7 @@ func (ctrl ArticleController) One(c *gin.Context) {
 }
 
 //Update ...
-func (ctrl ArticleController) Update(c *gin.Context) {
+func (ctrl AnalyticsController) Update(c *gin.Context) {
   userID := getUserID(c)
 
   if userID == 0 {
@@ -103,28 +103,28 @@ func (ctrl ArticleController) Update(c *gin.Context) {
   id := c.Param("id")
   if id, err := strconv.ParseInt(id, 10, 64); err == nil {
 
-    var articleForm forms.ArticleForm
+    var analyticsForm forms.AnalyticsForm
 
-    if c.BindJSON(&articleForm) != nil {
-      c.JSON(406, gin.H{"message": "Invalid parameters", "form": articleForm})
+    if c.BindJSON(&analyticsForm) != nil {
+      c.JSON(406, gin.H{"message": "Invalid parameters", "form": analyticsForm})
       c.Abort()
       return
     }
 
-    err := articleModel.Update(userID, id, articleForm)
+    err := analyticsModel.Update(userID, id, analyticsForm)
     if err != nil {
-      c.JSON(406, gin.H{"Message": "Article could not be updated", "error": err.Error()})
+      c.JSON(406, gin.H{"Message": "analytics could not be updated", "error": err.Error()})
       c.Abort()
       return
     }
-    c.JSON(200, gin.H{"message": "Article updated"})
+    c.JSON(200, gin.H{"message": "analytics updated"})
   } else {
     c.JSON(404, gin.H{"Message": "Invalid parameter", "error": err.Error()})
   }
 }
 
 //Delete ...
-func (ctrl ArticleController) Delete(c *gin.Context) {
+func (ctrl AnalyticsController) Delete(c *gin.Context) {
   userID := getUserID(c)
 
   if userID == 0 {
@@ -136,13 +136,13 @@ func (ctrl ArticleController) Delete(c *gin.Context) {
   id := c.Param("id")
   if id, err := strconv.ParseInt(id, 10, 64); err == nil {
 
-    err := articleModel.Delete(userID, id)
+    err := analyticsModel.Delete(userID, id)
     if err != nil {
-      c.JSON(406, gin.H{"Message": "Article could not be deleted", "error": err.Error()})
+      c.JSON(406, gin.H{"Message": "analytics could not be deleted", "error": err.Error()})
       c.Abort()
       return
     }
-    c.JSON(200, gin.H{"message": "Article deleted"})
+    c.JSON(200, gin.H{"message": "analytics deleted"})
   } else {
     c.JSON(404, gin.H{"Message": "Invalid parameter"})
   }
