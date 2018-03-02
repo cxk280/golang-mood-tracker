@@ -91,11 +91,6 @@ func main() {
 
 	r.GET("/diary", diary.All)
 
-	// r.GET("/feed", func(c *gin.Context) {
-	// 	c.HTML(http.StatusOK, "feed.html", gin.H{
-	// 	})
-	// })
-
 	r.GET("/feed", feed.All)
 
 	r.POST("/login", user.Signin)
