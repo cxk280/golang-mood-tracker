@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
-	"runtime"
+	// "runtime"
 
 	"golang-mood-tracker/db"
 	"golang-mood-tracker/controllers"
@@ -65,18 +65,20 @@ func main() {
 	dashboard 	:= new(controllers.DashboardController)
 	diary 			:= new(controllers.DiaryController)
 	feed 				:= new(controllers.FeedController)
-	// index 			:= new(controllers.indexController)
+	index 			:= new(controllers.IndexController)
 
 	r.LoadHTMLGlob("./public/html/*.html")
 
 	r.Static("/public", "./public")
 
-	r.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.html", gin.H{
-			"ginBoilerplateVersion": "v0.03",
-			"goVersion":             runtime.Version(),
-		})
-	})
+	// r.GET("/", func(c *gin.Context) {
+	// 	c.HTML(http.StatusOK, "index.html", gin.H{
+	// 		"ginBoilerplateVersion": "v0.03",
+	// 		"goVersion":             runtime.Version(),
+	// 	})
+	// })
+
+	r.GET("/", index.All)
 
 	r.GET("/signup", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "signup.html", gin.H{

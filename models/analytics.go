@@ -46,13 +46,13 @@ func (m AnalyticsModel) Create(userID int64, form forms.AnalyticsForm) (analytic
 }
 
 // //One ...
-// func (m AnalyticsModel) One(userID, id int64) (analytics analytics, err error) {
+// func (m AnalyticsModel) One(userID, id int64) (analytics Analytics, err error) {
 //   err = db.GetDB().SelectOne(&analytics, "SELECT a.id, a.title, a.content, a.updated_at, a.created_at, json_build_object('id', u.id, 'name', u.name, 'email', u.email) AS user FROM public.analytics a LEFT JOIN public.user u ON a.user_id = u.id WHERE a.user_id=$1 AND a.id=$2 LIMIT 1", userID, id)
 //   return analytics, err
 // }
 
 // //All ...
-// func (m AnalyticsModel) All(userID int64) (analytics []analytics, err error) {
+// func (m AnalyticsModel) All(userID int64) (analytics []Analytics, err error) {
 //   _, err = db.GetDB().Select(&analytics, "SELECT a.id, a.title, a.content, a.updated_at, a.created_at, json_build_object('id', u.id, 'name', u.name, 'email', u.email) AS user FROM public.analytics a LEFT JOIN public.user u ON a.user_id = u.id WHERE a.user_id=$1 ORDER BY a.id DESC", userID)
 //   return analytics, err
 // }

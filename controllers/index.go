@@ -1,21 +1,22 @@
 package controllers
 
-// import (
-//   "strconv"
+import (
+  // "strconv"
+  "net/http"
 
-//   "golang-mood-tracker/forms"
-//   "golang-mood-tracker/models"
+  // "golang-mood-tracker/forms"
+  "golang-mood-tracker/models"
 
-//   "github.com/gin-gonic/gin"
-// )
+  "github.com/gin-gonic/gin"
+)
 
-// //ArticleController ...
-// type ArticleController struct{}
+//IndexController ...
+type IndexController struct{}
 
-// var articleModel = new(models.ArticleModel)
+var indexModel = new(models.IndexModel)
 
 // //Create ...
-// func (ctrl ArticleController) Create(c *gin.Context) {
+// func (ctrl IndexController) Create(c *gin.Context) {
 //   userID := getUserID(c)
 
 //   if userID == 0 {
@@ -24,48 +25,51 @@ package controllers
 //     return
 //   }
 
-//   var articleForm forms.ArticleForm
+//   var indexForm forms.IndexForm
 
-//   if c.BindJSON(&articleForm) != nil {
-//     c.JSON(406, gin.H{"message": "Invalid form boo", "form": articleForm})
+//   if c.BindJSON(&indexForm) != nil {
+//     c.JSON(406, gin.H{"message": "Invalid form boo", "form": indexForm})
 //     c.Abort()
 //     return
 //   }
 
-//   articleID, err := articleModel.Create(userID, articleForm)
+//   indexID, err := indexModel.Create(userID, indexForm)
 
-//   if articleID > 0 && err != nil {
-//     c.JSON(406, gin.H{"message": "Article could not be created", "error": err.Error()})
+//   if indexID > 0 && err != nil {
+//     c.JSON(406, gin.H{"message": "index could not be created", "error": err.Error()})
 //     c.Abort()
 //     return
 //   }
 
-//   c.JSON(200, gin.H{"message": "Article created", "id": articleID})
+//   c.JSON(200, gin.H{"message": "index created", "id": indexID})
 // }
 
-// //All ...
-// func (ctrl ArticleController) All(c *gin.Context) {
-//   userID := getUserID(c)
+//All ...
+func (ctrl IndexController) All(c *gin.Context) {
+  // userID := getUserID(c)
 
-//   if userID == 0 {
-//     c.JSON(403, gin.H{"message": "Please login first"})
-//     c.Abort()
-//     return
-//   }
+  // if userID == 0 {
+  //   c.JSON(403, gin.H{"message": "Please login first"})
+  //   c.Abort()
+  //   return
+  // }
 
-//   data, err := articleModel.All(userID)
+  // data, err := indexModel.All(userID)
 
-//   if err != nil {
-//     c.JSON(406, gin.H{"Message": "Could not get the articles", "error": err.Error()})
-//     c.Abort()
-//     return
-//   }
+  // if err != nil {
+  //   c.JSON(406, gin.H{"Message": "Could not get the indexs", "error": err.Error()})
+  //   c.Abort()
+  //   return
+  // }
 
-//   c.JSON(200, gin.H{"data": data})
-// }
+  // c.JSON(200, gin.H{"data": data})
+
+  c.HTML(http.StatusOK, "index.html", gin.H{
+      })
+}
 
 // //One ...
-// func (ctrl ArticleController) One(c *gin.Context) {
+// func (ctrl IndexController) One(c *gin.Context) {
 //   userID := getUserID(c)
 
 //   if userID == 0 {
@@ -78,9 +82,9 @@ package controllers
 
 //   if id, err := strconv.ParseInt(id, 10, 64); err == nil {
 
-//     data, err := articleModel.One(userID, id)
+//     data, err := indexModel.One(userID, id)
 //     if err != nil {
-//       c.JSON(404, gin.H{"Message": "Article not found", "error": err.Error()})
+//       c.JSON(404, gin.H{"Message": "index not found", "error": err.Error()})
 //       c.Abort()
 //       return
 //     }
@@ -91,7 +95,7 @@ package controllers
 // }
 
 // //Update ...
-// func (ctrl ArticleController) Update(c *gin.Context) {
+// func (ctrl IndexController) Update(c *gin.Context) {
 //   userID := getUserID(c)
 
 //   if userID == 0 {
@@ -103,28 +107,28 @@ package controllers
 //   id := c.Param("id")
 //   if id, err := strconv.ParseInt(id, 10, 64); err == nil {
 
-//     var articleForm forms.ArticleForm
+//     var indexForm forms.IndexForm
 
-//     if c.BindJSON(&articleForm) != nil {
-//       c.JSON(406, gin.H{"message": "Invalid parameters", "form": articleForm})
+//     if c.BindJSON(&indexForm) != nil {
+//       c.JSON(406, gin.H{"message": "Invalid parameters", "form": indexForm})
 //       c.Abort()
 //       return
 //     }
 
-//     err := articleModel.Update(userID, id, articleForm)
+//     err := indexModel.Update(userID, id, indexForm)
 //     if err != nil {
-//       c.JSON(406, gin.H{"Message": "Article could not be updated", "error": err.Error()})
+//       c.JSON(406, gin.H{"Message": "index could not be updated", "error": err.Error()})
 //       c.Abort()
 //       return
 //     }
-//     c.JSON(200, gin.H{"message": "Article updated"})
+//     c.JSON(200, gin.H{"message": "index updated"})
 //   } else {
 //     c.JSON(404, gin.H{"Message": "Invalid parameter", "error": err.Error()})
 //   }
 // }
 
 // //Delete ...
-// func (ctrl ArticleController) Delete(c *gin.Context) {
+// func (ctrl IndexController) Delete(c *gin.Context) {
 //   userID := getUserID(c)
 
 //   if userID == 0 {
@@ -136,13 +140,13 @@ package controllers
 //   id := c.Param("id")
 //   if id, err := strconv.ParseInt(id, 10, 64); err == nil {
 
-//     err := articleModel.Delete(userID, id)
+//     err := indexModel.Delete(userID, id)
 //     if err != nil {
-//       c.JSON(406, gin.H{"Message": "Article could not be deleted", "error": err.Error()})
+//       c.JSON(406, gin.H{"Message": "index could not be deleted", "error": err.Error()})
 //       c.Abort()
 //       return
 //     }
-//     c.JSON(200, gin.H{"message": "Article deleted"})
+//     c.JSON(200, gin.H{"message": "index deleted"})
 //   } else {
 //     c.JSON(404, gin.H{"Message": "Invalid parameter"})
 //   }
