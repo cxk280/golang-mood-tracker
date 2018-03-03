@@ -17,30 +17,32 @@
   </center>
   <br />
   <br />
-  <center>
-    <button>1</button>
-    <button>2</button>
-    <button>3</button>
-    <button>4</button>
-    <button>5</button>
-    <button>6</button>
-    <button>7</button>
-    <button>8</button>
-    <button>9</button>
-    <button>10</button>
-  </center>
-  <br />
-  <br />
-  <center>
-    <span class="col-4"></span>
-      <textarea class="col-4 textBox" type="text" placeholder="Write notes here."></textarea>
-    <span class="col-4"></span>
-  </center>
-  <br />
-  <br />
-  <center>
-    <button>Submit</button>
-  </center>
+  <form action="/diary" method="post" name="dashboardForm">
+    <center>
+      <input type="button" name="button1" value="1">
+      <input type="button" name="button2" value="2">
+      <input type="button" name="button3" value="3">
+      <input type="button" name="button4" value="4">
+      <input type="button" name="button5" value="5">
+      <input type="button" name="button6" value="6">
+      <input type="button" name="button7" value="7">
+      <input type="button" name="button8" value="8">
+      <input type="button" name="button9" value="9">
+      <input type="button" name="button10" value="10">
+    </center>
+    <br />
+    <br />
+    <center>
+      <span class="col-4"></span>
+        <textarea class="col-4 textBox" type="text" placeholder="Write notes here."></textarea>
+      <span class="col-4"></span>
+    </center>
+    <br />
+    <br />
+    <center>
+      <input type="submit">
+    </center>
+  </form>
   <br /> <br /><br />
   {{ template "footer.html" .}}
 </body>
