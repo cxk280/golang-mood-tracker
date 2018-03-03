@@ -27,8 +27,24 @@ func (ctrl DiaryController) Create(c *gin.Context) {
 
   var diaryForm forms.DiaryForm
 
-  if c.BindJSON(&diaryForm) != nil {
-    c.JSON(406, gin.H{"message": "Invalid form boo", "form": diaryForm})
+  //If using bindJSON, form must be submitted as raw JSON (type application/json) in order for c.BindJSON below to work
+  //Example:
+  //{
+  //   "Title": "MyTitle",
+  //   "Content": "MyContent"
+  // }
+
+  // if c.BindJSON(&diaryForm) != nil {
+    // c.JSON(406, gin.H{"message": "Invalid form", "form": diaryForm})
+    // c.Abort()
+    // return
+  // }
+
+  titleValue := c.PostForm("Title");
+  contentValue := c.PostForm("Content");
+
+  if (titleValue == "") || (contentValue == "") {
+    c.JSON(406, gin.H{"message": "Invalid form", "Title": titleValue, "Content": contentValue})
     c.Abort()
     return
   }

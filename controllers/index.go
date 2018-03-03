@@ -28,7 +28,7 @@ var indexModel = new(models.IndexModel)
 //   var indexForm forms.IndexForm
 
 //   if c.BindJSON(&indexForm) != nil {
-//     c.JSON(406, gin.H{"message": "Invalid form boo", "form": indexForm})
+//     c.JSON(406, gin.H{"message": "Invalid form", "form": indexForm})
 //     c.Abort()
 //     return
 //   }

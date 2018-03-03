@@ -2,11 +2,13 @@ package controllers
 
 import (
 	"strconv"
+	"fmt"
 
 	"golang-mood-tracker/forms"
 	"golang-mood-tracker/models"
 
 	"github.com/gin-gonic/gin"
+	// "github.com/gin-gonic/gin/binding"
 )
 
 //ArticleController ...
@@ -16,23 +18,40 @@ var articleModel = new(models.ArticleModel)
 
 //Create ...
 func (ctrl ArticleController) Create(c *gin.Context) {
-	userID := getUserID(c)
+	// userID := getUserID(c)
 
-	if userID == 0 {
-		c.JSON(403, gin.H{"message": "Please login first"})
-		c.Abort()
-		return
-	}
+	// if userID == 0 {
+	// 	c.JSON(403, gin.H{"message": "Please login first"})
+	// 	c.Abort()
+	// 	return
+	// }
 
 	var articleForm forms.ArticleForm
 
-	if c.BindJSON(&articleForm) != nil {
-		c.JSON(406, gin.H{"message": "Invalid form boo", "form": articleForm})
-		c.Abort()
-		return
-	}
+	titleValue := c.PostForm("Title");
+	contentValue := c.PostForm("Content");
 
-	articleID, err := articleModel.Create(userID, articleForm)
+	fmt.Println("titleValue: ",titleValue)
+	fmt.Println("contentValue: ",contentValue)
+	fmt.Println("articleForm: ",articleForm)
+
+	//I should just do error validation by checking that c.PostForm("Title"), etc. are not empty strings
+
+	// if c.BindJSON(&articleForm) != nil {
+	// 	c.JSON(406, gin.H{"message": "Invalid form", "form": articleForm})
+	// 	c.Abort()
+	// 	return
+	// }
+
+	if (titleValue == "") || (contentValue == "") {
+    c.JSON(406, gin.H{"message": "Invalid form", "Title": titleValue, "Content": contentValue})
+    c.Abort()
+    return
+  }
+
+
+	// articleID, err := articleModel.Create(userID, articleForm)
+	articleID, err := articleModel.Create(1, articleForm)
 
 	if articleID > 0 && err != nil {
 		c.JSON(406, gin.H{"message": "Article could not be created", "error": err.Error()})

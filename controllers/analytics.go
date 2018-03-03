@@ -28,7 +28,7 @@ var analyticsModel = new(models.AnalyticsModel)
 //   var analyticsForm forms.AnalyticsForm
 
 //   if c.BindJSON(&analyticsForm) != nil {
-//     c.JSON(406, gin.H{"message": "Invalid form boo", "form": analyticsForm})
+//     c.JSON(406, gin.H{"message": "Invalid form", "form": analyticsForm})
 //     c.Abort()
 //     return
 //   }

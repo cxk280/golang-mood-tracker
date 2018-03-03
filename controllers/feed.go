@@ -28,7 +28,7 @@ var feedModel = new(models.FeedModel)
 //   var feedForm forms.FeedForm
 
 //   if c.BindJSON(&feedForm) != nil {
-//     c.JSON(406, gin.H{"message": "Invalid form boo", "form": feedForm})
+//     c.JSON(406, gin.H{"message": "Invalid form", "form": feedForm})
 //     c.Abort()
 //     return
 //   }

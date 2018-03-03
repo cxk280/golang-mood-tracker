@@ -28,7 +28,7 @@ var dashboardModel = new(models.DashboardModel)
 //   var dashboardForm forms.DashboardForm
 
 //   if c.BindJSON(&dashboardForm) != nil {
-//     c.JSON(406, gin.H{"message": "Invalid form boo", "form": dashboardForm})
+//     c.JSON(406, gin.H{"message": "Invalid form", "form": dashboardForm})
 //     c.Abort()
 //     return
 //   }
