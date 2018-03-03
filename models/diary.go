@@ -45,40 +45,40 @@ func (m DiaryModel) Create(userID int64, form forms.DiaryForm) (diaryID int64, e
   return diaryID, err
 }
 
-// //One ...
-// func (m DiaryModel) One(userID, id int64) (diary diary, err error) {
-//   err = db.GetDB().SelectOne(&diary, "SELECT a.id, a.title, a.content, a.updated_at, a.created_at, json_build_object('id', u.id, 'name', u.name, 'email', u.email) AS user FROM public.diary a LEFT JOIN public.user u ON a.user_id = u.id WHERE a.user_id=$1 AND a.id=$2 LIMIT 1", userID, id)
-//   return diary, err
-// }
+//One ...
+func (m DiaryModel) One(userID, id int64) (diary Diary, err error) {
+  err = db.GetDB().SelectOne(&diary, "SELECT a.id, a.title, a.content, a.updated_at, a.created_at, json_build_object('id', u.id, 'name', u.name, 'email', u.email) AS user FROM public.diary a LEFT JOIN public.user u ON a.user_id = u.id WHERE a.user_id=$1 AND a.id=$2 LIMIT 1", userID, id)
+  return diary, err
+}
 
-// //All ...
-// func (m DiaryModel) All(userID int64) (diaries []diary, err error) {
-//   _, err = db.GetDB().Select(&diarys, "SELECT a.id, a.title, a.content, a.updated_at, a.created_at, json_build_object('id', u.id, 'name', u.name, 'email', u.email) AS user FROM public.diary a LEFT JOIN public.user u ON a.user_id = u.id WHERE a.user_id=$1 ORDER BY a.id DESC", userID)
-//   return diarys, err
-// }
+//All ...
+func (m DiaryModel) All(userID int64) (diaries []Diary, err error) {
+  _, err = db.GetDB().Select(&diaries, "SELECT a.id, a.title, a.content, a.updated_at, a.created_at, json_build_object('id', u.id, 'name', u.name, 'email', u.email) AS user FROM public.diary a LEFT JOIN public.user u ON a.user_id = u.id WHERE a.user_id=$1 ORDER BY a.id DESC", userID)
+  return diaries, err
+}
 
-// //Update ...
-// func (m DiaryModel) Update(userID int64, id int64, form forms.DiaryForm) (err error) {
-//   _, err = m.One(userID, id)
+//Update ...
+func (m DiaryModel) Update(userID int64, id int64, form forms.DiaryForm) (err error) {
+  _, err = m.One(userID, id)
 
-//   if err != nil {
-//     return errors.New("diary not found")
-//   }
+  if err != nil {
+    return errors.New("diary not found")
+  }
 
-//   _, err = db.GetDB().Exec("UPDATE public.diary SET title=$1, content=$2, updated_at=$3 WHERE id=$4", form.Title, form.Content, time.Now().Unix(), id)
+  _, err = db.GetDB().Exec("UPDATE public.diary SET title=$1, content=$2, updated_at=$3 WHERE id=$4", form.Title, form.Content, time.Now().Unix(), id)
 
-//   return err
-// }
+  return err
+}
 
-// //Delete ...
-// func (m DiaryModel) Delete(userID, id int64) (err error) {
-//   _, err = m.One(userID, id)
+//Delete ...
+func (m DiaryModel) Delete(userID, id int64) (err error) {
+  _, err = m.One(userID, id)
 
-//   if err != nil {
-//     return errors.New("diary not found")
-//   }
+  if err != nil {
+    return errors.New("diary not found")
+  }
 
-//   _, err = db.GetDB().Exec("DELETE FROM public.diary WHERE id=$1", id)
+  _, err = db.GetDB().Exec("DELETE FROM public.diary WHERE id=$1", id)
 
-//   return err
-// }
+  return err
+}

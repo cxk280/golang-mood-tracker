@@ -54,20 +54,23 @@ func (ctrl UserController) Signin(c *gin.Context) {
 
   user, err := userModel.Signin(signinForm)
 
+
+
 	if err == nil {
+
+		//redis-server must be running for sessions to work
 		session := sessions.Default(c)
 		session.Set("user_id", user.ID)
 		session.Set("user_email", user.Email)
 		session.Set("user_name", user.Name)
 		session.Save()
 
-		c.JSON(200, gin.H{"message": "User signed in", "user": user})
+		// c.JSON(200, gin.H{"message": "User signed in", "user": user})
+
+		c.Redirect(http.StatusMovedPermanently, "/dashboard")
 	} else {
 		c.JSON(406, gin.H{"message": "Invalid signin details", "error": err.Error()})
 	}
-
-		// emailValue := c.PostForm("email");
-		// passwordValue := c.PostForm("password");
 
 }
 

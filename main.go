@@ -89,11 +89,11 @@ func main() {
 
 	r.GET("/dashboard", dashboard.All)
 
-	r.POST("/diary", diary.Create)
+	// r.POST("/diary", diary.Create)
 	r.GET("/diary", diary.All)
-	r.GET("/diary/:id", diary.One)
-	r.PUT("/diary/:id", diary.Update)
-	r.DELETE("/diary/:id", diary.Delete)
+	// r.GET("/diary/:id", diary.One)
+	// r.PUT("/diary/:id", diary.Update)
+	// r.DELETE("/diary/:id", diary.Delete)
 
 	r.GET("/feed", feed.All)
 
