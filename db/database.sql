@@ -87,37 +87,73 @@ SET default_with_oids = false;
 -- -- Name: diary; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 -- --
 
--- CREATE TABLE diary (
---     id integer NOT NULL,
---     user_id integer,
---     title character varying,
---     content text,
---     updated_at integer,
---     created_at integer
--- );
+CREATE TABLE diary (
+    id integer NOT NULL,
+    user_id integer,
+    title character varying,
+    content text,
+    updated_at integer,
+    created_at integer
+);
 
 
--- ALTER TABLE diary OWNER TO postgres;
+ALTER TABLE diary OWNER TO postgres;
 
--- --
--- -- Name: diary_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
--- --
+--
+-- Name: diary_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
 
--- CREATE SEQUENCE diary_id_seq
---     START WITH 1
---     INCREMENT BY 1
---     NO MINVALUE
---     NO MAXVALUE
---     CACHE 1;
+CREATE SEQUENCE diary_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
 
 
--- ALTER TABLE diary_id_seq OWNER TO postgres;
+ALTER TABLE diary_id_seq OWNER TO postgres;
 
--- --
--- -- Name: diary_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
--- --
+--
+-- Name: diary_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
 
--- ALTER SEQUENCE diary_id_seq OWNED BY diary.id;
+ALTER SEQUENCE diary_id_seq OWNED BY diary.id;
+
+--
+-- Name: analytics; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+--
+
+CREATE TABLE analytics (
+    id integer NOT NULL,
+    user_id integer,
+    title character varying,
+    content text,
+    updated_at integer,
+    created_at integer
+);
+
+
+ALTER TABLE analytics OWNER TO postgres;
+
+--
+-- Name: analytics_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE analytics_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE analytics_id_seq OWNER TO postgres;
+
+--
+-- Name: analytics_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE analytics_id_seq OWNED BY analytics.id;
 
 --
 -- Name: article; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
@@ -203,6 +239,13 @@ ALTER TABLE ONLY diary ALTER COLUMN id SET DEFAULT nextval('diary_id_seq'::regcl
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
+ALTER TABLE ONLY analytics ALTER COLUMN id SET DEFAULT nextval('analytics_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY article ALTER COLUMN id SET DEFAULT nextval('article_id_seq'::regclass);
 
 
@@ -225,6 +268,20 @@ COPY diary (id, user_id, title, content, updated_at, created_at) FROM stdin;
 --
 
 SELECT pg_catalog.setval('diary_id_seq', 1, false);
+
+--
+-- Data for Name: analytics; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY analytics (id, user_id, title, content, updated_at, created_at) FROM stdin;
+\.
+
+
+--
+-- Name: analytics_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('analytics_id_seq', 1, false);
 
 --
 -- Data for Name: article; Type: TABLE DATA; Schema: public; Owner: postgres
@@ -263,6 +320,13 @@ ALTER TABLE ONLY diary
     ADD CONSTRAINT diary_id PRIMARY KEY (id);
 
 --
+-- Name: analytics_id; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
+--
+
+ALTER TABLE ONLY analytics
+    ADD CONSTRAINT analytics_id PRIMARY KEY (id);
+
+--
 -- Name: article_id; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
 --
 
@@ -293,6 +357,20 @@ ALTER TABLE ONLY diary
 
 CREATE TRIGGER create_diary_created_at BEFORE INSERT ON diary FOR EACH ROW EXECUTE PROCEDURE created_at_column();
 
+--
+-- Name: analytics_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY analytics
+    ADD CONSTRAINT analytics_user_id FOREIGN KEY (user_id) REFERENCES "user"(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 2284 (class 2620 OID 36647)
+-- Name: analytics create_analytics_created_at; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER create_analytics_created_at BEFORE INSERT ON analytics FOR EACH ROW EXECUTE PROCEDURE created_at_column();
 
 --
 -- Name: article_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
@@ -323,6 +401,13 @@ CREATE TRIGGER create_user_created_at BEFORE INSERT ON "user" FOR EACH ROW EXECU
 --
 
 CREATE TRIGGER update_diary_updated_at BEFORE UPDATE ON diary FOR EACH ROW EXECUTE PROCEDURE update_at_column();
+
+--
+-- TOC entry 2285 (class 2620 OID 36648)
+-- Name: analytics update_analytics_updated_at; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER update_analytics_updated_at BEFORE UPDATE ON analytics FOR EACH ROW EXECUTE PROCEDURE update_at_column();
 
 
 --
