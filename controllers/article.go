@@ -18,37 +18,24 @@ var articleModel = new(models.ArticleModel)
 
 //Create ...
 func (ctrl ArticleController) Create(c *gin.Context) {
-	// userID := getUserID(c)
+	userID := getUserID(c)
 
-	// if userID == 0 {
-	// 	c.JSON(403, gin.H{"message": "Please login first"})
-	// 	c.Abort()
-	// 	return
-	// }
+	if userID == 0 {
+		c.JSON(403, gin.H{"message": "Please login first"})
+		c.Abort()
+		return
+	}
 
 	var articleForm forms.ArticleForm
 
-	titleValue := c.PostForm("Title");
-	contentValue := c.PostForm("Content");
+	if c.BindJSON(&articleForm) != nil {
+		c.JSON(406, gin.H{"message": "Invalid form", "form": articleForm})
+		c.Abort()
+		return
+	}
 
-	fmt.Println("titleValue: ",titleValue)
-	fmt.Println("contentValue: ",contentValue)
 	fmt.Println("articleForm: ",articleForm)
-
-	//I should just do error validation by checking that c.PostForm("Title"), etc. are not empty strings
-
-	// if c.BindJSON(&articleForm) != nil {
-	// 	c.JSON(406, gin.H{"message": "Invalid form", "form": articleForm})
-	// 	c.Abort()
-	// 	return
-	// }
-
-	if (titleValue == "") || (contentValue == "") {
-    c.JSON(406, gin.H{"message": "Invalid form", "Title": titleValue, "Content": contentValue})
-    c.Abort()
-    return
-  }
-
+	fmt.Println("userID: ",userID)
 
 	// articleID, err := articleModel.Create(userID, articleForm)
 	articleID, err := articleModel.Create(1, articleForm)
@@ -64,15 +51,16 @@ func (ctrl ArticleController) Create(c *gin.Context) {
 
 //All ...
 func (ctrl ArticleController) All(c *gin.Context) {
-	userID := getUserID(c)
+	// userID := getUserID(c)
 
-	if userID == 0 {
-		c.JSON(403, gin.H{"message": "Please login first"})
-		c.Abort()
-		return
-	}
+	// if userID == 0 {
+	// 	c.JSON(403, gin.H{"message": "Please login first"})
+	// 	c.Abort()
+	// 	return
+	// }
 
-	data, err := articleModel.All(userID)
+	// data, err := articleModel.All(userID)
+	data, err := articleModel.All(1)
 
 	if err != nil {
 		c.JSON(406, gin.H{"Message": "Could not get the articles", "error": err.Error()})

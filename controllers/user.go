@@ -2,7 +2,7 @@ package controllers
 
 import (
 
-  // "fmt"
+  "fmt"
   // "log"
   "net/http"
 
@@ -46,11 +46,17 @@ func (ctrl UserController) Signin(c *gin.Context) {
 
 	var signinForm forms.SigninForm
 
+	//Line below is blank
+	fmt.Println(signinForm)
+
   if err := c.ShouldBindWith(&signinForm, binding.Form); err != nil {
 	  c.JSON(406, gin.H{"message": "Invalid signin form", "form": signinForm})
 	  c.Abort()
 	  return
   }
+
+  //Line below contains correct data
+  fmt.Println(signinForm)
 
   user, err := userModel.Signin(signinForm)
 
@@ -64,8 +70,6 @@ func (ctrl UserController) Signin(c *gin.Context) {
 		session.Set("user_email", user.Email)
 		session.Set("user_name", user.Name)
 		session.Save()
-
-		// c.JSON(200, gin.H{"message": "User signed in", "user": user})
 
 		c.Redirect(http.StatusMovedPermanently, "/dashboard")
 	} else {

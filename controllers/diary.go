@@ -3,11 +3,13 @@ package controllers
 import (
   "strconv"
   "net/http"
+  "fmt"
 
   "golang-mood-tracker/forms"
   "golang-mood-tracker/models"
 
   "github.com/gin-gonic/gin"
+  // "github.com/gin-gonic/gin/binding"
 )
 
 //DiaryController ...
@@ -17,6 +19,8 @@ var diaryModel = new(models.DiaryModel)
 
 // //Create ...
 func (ctrl DiaryController) Create(c *gin.Context) {
+
+  //Sign in via the browser with redis-server running or in Postman directly in order for Create to increment properly
   userID := getUserID(c)
 
   if userID == 0 {
@@ -26,28 +30,23 @@ func (ctrl DiaryController) Create(c *gin.Context) {
   }
 
   var diaryForm forms.DiaryForm
+  fmt.Println("diaryForm before: ",diaryForm)
 
-  //If using bindJSON, form must be submitted as raw JSON (type application/json) in order for c.BindJSON below to work
-  //Example:
-  //{
-  //   "Title": "MyTitle",
-  //   "Content": "MyContent"
+  // if err := c.ShouldBindWith(&diaryForm, binding.Form); err == nil {
+  //   c.JSON(406, gin.H{"message": "Invalid form", "form": diaryForm})
+  //   c.Abort()
+  //   return
   // }
 
-  // if c.BindJSON(&diaryForm) != nil {
-    // c.JSON(406, gin.H{"message": "Invalid form", "form": diaryForm})
-    // c.Abort()
-    // return
-  // }
-
-  titleValue := c.PostForm("Title");
-  contentValue := c.PostForm("Content");
-
-  if (titleValue == "") || (contentValue == "") {
-    c.JSON(406, gin.H{"message": "Invalid form", "Title": titleValue, "Content": contentValue})
+  if c.BindJSON(&diaryForm) != nil {
+    c.JSON(406, gin.H{"message": "Invalid form", "form": diaryForm})
     c.Abort()
     return
   }
+
+  // fmt.Println("c.PostForm: ",c.PostForm)
+  // fmt.Println("c.Request.Form: ",c.Request.Form)
+  fmt.Println("diaryForm after: ",diaryForm)
 
   diaryID, err := diaryModel.Create(userID, diaryForm)
 
@@ -62,21 +61,28 @@ func (ctrl DiaryController) Create(c *gin.Context) {
 
 //All ...
 func (ctrl DiaryController) All(c *gin.Context) {
-  userID := getUserID(c)
+  // userID := getUserID(c)
 
-  if userID == 0 {
-    c.JSON(403, gin.H{"message": "Please login first"})
-    c.Abort()
-    return
-  }
+  // if userID == 0 {
+  //   c.JSON(403, gin.H{"message": "Please login first"})
+  //   c.Abort()
+  //   return
+  // }
 
-  data, err := diaryModel.All(userID)
+  // data, err := diaryModel.All(userID)
+  data, err := diaryModel.All(1)
 
   if err != nil {
     c.JSON(406, gin.H{"Message": "Could not get the diaries", "error": err.Error()})
     c.Abort()
     return
   }
+
+  fmt.Println(" ")
+  fmt.Println("************")
+  fmt.Println("data in diary.All: ",data)
+  fmt.Println("************")
+  fmt.Println(" ")
 
   c.HTML(http.StatusOK, "diary.html", gin.H{"data": data})
 }
