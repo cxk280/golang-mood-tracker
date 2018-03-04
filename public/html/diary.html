@@ -12,26 +12,47 @@
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="./public/stylesheets/styles.css">
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.css">
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.print.css">
+  <link rel="stylesheet" type="text/css" media="print" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.print.css">
   <link rel="stylesheet" type="text/css" href="./public/stylesheets/styles.css">
 
   <script>
     $(document).ready(function() {
       $('#calendar').fullCalendar({
+          // events will need to be populated from the diary db table
           events: [
             {
                 title: 'Event1',
-                start: '2018-02-04'
+                start: '2018-03-04'
             },
             {
                 title: 'Event2',
-                start: '2018-02-26'
+                start: '2018-03-26'
             }
           ],
+          customButtons: {
+            addEventButton: {
+              text: 'add event...',
+              click: function() {
+                var dateStr = prompt('Enter a date in YYYY-MM-DD format');
+                var date = moment(dateStr);
+
+                if (date.isValid()) {
+                  $('#calendar').fullCalendar('renderEvent', {
+                    title: 'dynamic event',
+                    start: date,
+                    allDay: true
+                  });
+                  alert('Great. Now, update your database...');
+                } else {
+                  alert('Invalid date.');
+                }
+              }
+            }
+          },
           header: {
-            left: '',
-            center: 'prev title next',
-            right: ''
+            left: 'addEventButton',
+            center: 'title',
+            right: 'prev next'
           },
           eventClick:  function(event, jsEvent, view) {
               $('#modalTitle').html(event.title);
