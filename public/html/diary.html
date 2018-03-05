@@ -8,6 +8,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
   <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.js"></script>
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="./public/stylesheets/styles.css">
@@ -33,19 +34,24 @@
             addEventButton: {
               text: 'add event...',
               click: function() {
-                var dateStr = prompt('Enter a date in YYYY-MM-DD format');
-                var date = moment(dateStr);
-
-                if (date.isValid()) {
-                  $('#calendar').fullCalendar('renderEvent', {
-                    title: 'dynamic event',
-                    start: date,
-                    allDay: true
+                var date;
+                var eventDesc;
+                bootbox.prompt('Enter a date in YYYY-MM-DD format.', function(result){
+                  date = moment(result);
+                  bootbox.prompt('Enter a description of your event.', function(result){
+                    eventDesc = result;
+                    if (date.isValid()) {
+                      $('#calendar').fullCalendar('renderEvent', {
+                        title: 'dynamic event',
+                        start: date,
+                        allDay: true
+                      });
+                      bootbox.alert('Great. Now, update your database...');
+                    } else {
+                      bootbox.alert('Invalid date.');
+                    }
                   });
-                  alert('Great. Now, update your database...');
-                } else {
-                  alert('Invalid date.');
-                }
+                });
               }
             }
           },
