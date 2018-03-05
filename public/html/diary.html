@@ -9,6 +9,7 @@
   <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="./public/stylesheets/styles.css">
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.css">
@@ -26,7 +27,10 @@
           console.log('Diary GET success');
           console.log('data: ',data);
           for (let i in data.data) {
-            eventsArr.push({"feeling": data.data[i].feeling,"notes": data.data[i].notes})
+            let t = new Date();
+            t.setSeconds( data.data[i].created_at );
+            let formatted = t.format("dd.mm.yyyy");
+            eventsArr.push({"feeling": data.data[i].feeling,"notes": data.data[i].notes, "date": formatted })
           }
           console.log('eventsArr: ',eventsArr);
         },

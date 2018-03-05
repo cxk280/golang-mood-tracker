@@ -34,7 +34,7 @@ func (m DiaryModel) Create(userID int64, form forms.DiaryForm) (diaryID int64, e
     return 0, errors.New("User doesn't exist")
   }
 
-  _, err = getDb.Exec("INSERT INTO public.diary(user_id, feeling, notes, updated_at, created_at) VALUES($1, $2, $3, $4, $5) RETURNING id", userID, form.Feeling, form.Notes, time.Now().Unix(), time.Now().Unix())
+  _, err = getDb.Exec("INSERT INTO public.diary(user_id, feeling, notes, updated_at, created_at, created_date) VALUES($1, $2, $3, $4, $5) RETURNING id", userID, form.Feeling, form.Notes, time.Now().Unix(), time.Now().Unix())
 
   if err != nil {
     return 0, err
