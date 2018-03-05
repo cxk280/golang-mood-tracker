@@ -45,40 +45,40 @@ func (m FeedModel) Create(userID int64, form forms.FeedForm) (feedID int64, err 
   return feedID, err
 }
 
-// //One ...
-// func (m FeedModel) One(userID, id int64) (feed Feed, err error) {
-//   err = db.GetDB().SelectOne(&feed, "SELECT a.id, a.title, a.content, a.updated_at, a.created_at, json_build_object('id', u.id, 'name', u.name, 'email', u.email) AS user FROM public.feed a LEFT JOIN public.user u ON a.user_id = u.id WHERE a.user_id=$1 AND a.id=$2 LIMIT 1", userID, id)
-//   return feed, err
-// }
+//One ...
+func (m FeedModel) One(userID, id int64) (feed Feed, err error) {
+  err = db.GetDB().SelectOne(&feed, "SELECT a.id, a.title, a.content, a.updated_at, a.created_at, json_build_object('id', u.id, 'name', u.name, 'email', u.email) AS user FROM public.feed a LEFT JOIN public.user u ON a.user_id = u.id WHERE a.user_id=$1 AND a.id=$2 LIMIT 1", userID, id)
+  return feed, err
+}
 
-//All ...
-// func (m FeedModel) All(userID int64) (feeds []Feed, err error) {
-//   _, err = db.GetDB().Select(&feeds, "SELECT a.id, a.title, a.content, a.updated_at, a.created_at, json_build_object('id', u.id, 'name', u.name, 'email', u.email) AS user FROM public.feed a LEFT JOIN public.user u ON a.user_id = u.id WHERE a.user_id=$1 ORDER BY a.id DESC", userID)
-//   return feeds, err
-// }
+// All ...
+func (m FeedModel) All(userID int64) (feeds []Feed, err error) {
+  _, err = db.GetDB().Select(&feeds, "SELECT a.id, a.title, a.content, a.updated_at, a.created_at, json_build_object('id', u.id, 'name', u.name, 'email', u.email) AS user FROM public.feed a LEFT JOIN public.user u ON a.user_id = u.id WHERE a.user_id=$1 ORDER BY a.id DESC", userID)
+  return feeds, err
+}
 
-// //Update ...
-// func (m FeedModel) Update(userID int64, id int64, form forms.FeedForm) (err error) {
-//   _, err = m.One(userID, id)
+//Update ...
+func (m FeedModel) Update(userID int64, id int64, form forms.FeedForm) (err error) {
+  _, err = m.One(userID, id)
 
-//   if err != nil {
-//     return errors.New("feed not found")
-//   }
+  if err != nil {
+    return errors.New("feed not found")
+  }
 
-//   _, err = db.GetDB().Exec("UPDATE public.feed SET title=$1, content=$2, updated_at=$3 WHERE id=$4", form.Title, form.Content, time.Now().Unix(), id)
+  _, err = db.GetDB().Exec("UPDATE public.feed SET title=$1, content=$2, updated_at=$3 WHERE id=$4", form.Title, form.Content, time.Now().Unix(), id)
 
-//   return err
-// }
+  return err
+}
 
-// //Delete ...
-// func (m FeedModel) Delete(userID, id int64) (err error) {
-//   _, err = m.One(userID, id)
+//Delete ...
+func (m FeedModel) Delete(userID, id int64) (err error) {
+  _, err = m.One(userID, id)
 
-//   if err != nil {
-//     return errors.New("feed not found")
-//   }
+  if err != nil {
+    return errors.New("feed not found")
+  }
 
-//   _, err = db.GetDB().Exec("DELETE FROM public.feed WHERE id=$1", id)
+  _, err = db.GetDB().Exec("DELETE FROM public.feed WHERE id=$1", id)
 
-//   return err
-// }
+  return err
+}

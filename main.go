@@ -85,7 +85,11 @@ func main() {
 		})
 	})
 
+	r.POST("/analytics", analytics.Create)
 	r.GET("/analytics", analytics.All)
+	r.GET("/analytics/:id", analytics.One)
+	r.PUT("/analytics/:id", analytics.Update)
+	r.DELETE("/analytics/:id", analytics.Delete)
 
 	r.GET("/dashboard", dashboard.All)
 
@@ -95,7 +99,11 @@ func main() {
 	r.PUT("/diary/:id", diary.Update)
 	r.DELETE("/diary/:id", diary.Delete)
 
+	r.POST("/feed", feed.Create)
 	r.GET("/feed", feed.All)
+	r.GET("/feed/:id", feed.One)
+	r.PUT("/feed/:id", feed.Update)
+	r.DELETE("/feed/:id", feed.Delete)
 
 	r.POST("/login", user.Signin)
 

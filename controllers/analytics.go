@@ -1,13 +1,15 @@
 package controllers
 
 import (
-  // "strconv"
+  "strconv"
   "net/http"
+  "fmt"
 
-  // "golang-mood-tracker/forms"
+  "golang-mood-tracker/forms"
   "golang-mood-tracker/models"
 
   "github.com/gin-gonic/gin"
+  "github.com/gin-gonic/gin/binding"
 )
 
 //AnalyticsController ...
@@ -18,7 +20,7 @@ var analyticsModel = new(models.AnalyticsModel)
 //Create ...
 func (ctrl AnalyticsController) Create(c *gin.Context) {
   userID := getUserID(c)
-f
+
   if userID == 0 {
     c.JSON(403, gin.H{"message": "Please login first"})
     c.Abort()
@@ -48,7 +50,6 @@ f
 //All ...
 func (ctrl AnalyticsController) All(c *gin.Context) {
 
-  The userID stuff below is what is causing the nil pointer error I sometimes get
   userID := getUserID(c)
 
   if userID == 0 {
@@ -58,6 +59,8 @@ func (ctrl AnalyticsController) All(c *gin.Context) {
   }
 
   data, err := analyticsModel.All(userID)
+
+  fmt.Println(data)
 
   if err != nil {
     c.JSON(406, gin.H{"Message": "Could not get the analytics", "error": err.Error()})
@@ -128,7 +131,7 @@ func (ctrl AnalyticsController) Update(c *gin.Context) {
   }
 }
 
-Delete ...
+// Delete ...
 func (ctrl AnalyticsController) Delete(c *gin.Context) {
   userID := getUserID(c)
 

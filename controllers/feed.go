@@ -1,13 +1,15 @@
 package controllers
 
 import (
-  // "strconv"
+  "strconv"
   "net/http"
+  "fmt"
 
-  // "golang-mood-tracker/forms"
+  "golang-mood-tracker/forms"
   "golang-mood-tracker/models"
 
   "github.com/gin-gonic/gin"
+  "github.com/gin-gonic/gin/binding"
 )
 
 //FeedController ...
@@ -15,7 +17,7 @@ type FeedController struct{}
 
 var feedModel = new(models.FeedModel)
 
-Create ...
+// Create ...
 func (ctrl FeedController) Create(c *gin.Context) {
   userID := getUserID(c)
 
@@ -56,6 +58,7 @@ func (ctrl FeedController) All(c *gin.Context) {
   }
 
   data, err := feedModel.All(userID)
+  fmt.Println(data)
 
   if err != nil {
     c.JSON(406, gin.H{"Message": "Could not get the feeds", "error": err.Error()})
