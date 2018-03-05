@@ -17,7 +17,7 @@
 
   <script>
     $(document).ready(function() {
-      //AJAX get request here to get events
+      let eventsArr = [];
       $.ajax({
         url: '/diary',
         type: 'GET',
@@ -25,13 +25,16 @@
         success: function(data) {
           console.log('Diary GET success');
           console.log('data: ',data);
+          for (let i in data.data) {
+            eventsArr.push({"feeling": data.data[i].feeling,"notes": data.data[i].notes})
+          }
+          console.log('eventsArr: ',eventsArr);
         },
         error: function() {
           console.log('Diary GET failure');
         }
       })
       $('#calendar').fullCalendar({
-          // events will need to be populated from the diary db table using Ajax get request
           events: [
             {
                 title: 'Event1',
