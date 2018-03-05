@@ -28,3 +28,7 @@
 #calendar .fc-center h2{
   color: white;
 }
+
+input[type="radio"] {
+  margin-left: 20px;
+}
