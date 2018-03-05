@@ -90,8 +90,8 @@ SET default_with_oids = false;
 CREATE TABLE diary (
     id integer NOT NULL,
     user_id integer,
-    title character varying,
-    content text,
+    feeling integer,
+    notes text,
     updated_at integer,
     created_at integer
 );
@@ -300,7 +300,7 @@ ALTER TABLE ONLY "user" ALTER COLUMN id SET DEFAULT nextval('user_id_seq'::regcl
 -- Data for Name: diary; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY diary (id, user_id, title, content, updated_at, created_at) FROM stdin;
+COPY diary (id, user_id, feeling, notes, updated_at, created_at) FROM stdin;
 \.
 
 

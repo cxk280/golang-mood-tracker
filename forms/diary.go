@@ -2,6 +2,6 @@ package forms
 
 //DiaryForm ...
 type DiaryForm struct {
-  Title   string `form:"title" json:"title" binding:"required,max=100"`
-  Content string `form:"content" json:"content" binding:"required,max=1000"`
+  Feeling   string `form:"feeling" json:"feeling" binding:"required,max=100"`
+  Notes     string `form:"notes" json:"notes" binding:"required,max=1000"`
 }
