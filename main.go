@@ -71,12 +71,12 @@ func main() {
 
 	r.Static("/public", "./public")
 
-	// r.GET("/", func(c *gin.Context) {
-	// 	c.HTML(http.StatusOK, "index.html", gin.H{
-	// 		"ginBoilerplateVersion": "v0.03",
-	// 		"goVersion":             runtime.Version(),
-	// 	})
-	// })
+	r.GET("/", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "index.html", gin.H{
+			"ginBoilerplateVersion": "v0.03",
+			"goVersion":             runtime.Version(),
+		})
+	})
 
 	r.GET("/", index.All)
 
@@ -98,6 +98,10 @@ func main() {
 	r.GET("/diary/:id", diary.One)
 	r.PUT("/diary/:id", diary.Update)
 	r.DELETE("/diary/:id", diary.Delete)
+	r.GET("/diaryPage", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "diary.html", gin.H{
+		})
+	})
 
 	r.POST("/feed", feed.Create)
 	r.GET("/feed", feed.All)
