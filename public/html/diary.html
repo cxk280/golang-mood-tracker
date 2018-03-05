@@ -36,22 +36,25 @@
               click: function() {
                 let myDate;
                 let myEventDesc;
+
                 bootbox.prompt('Enter a date in YYYY-MM-DD format.', function(result){
                   myDate = moment(result);
+                  //Events are not happening in correct sequence after following prompt
+                  //Look into a proper promise chain here
                   bootbox.prompt('Enter a description of your event.', function(result){
                     myEventDesc = result;
-                    if (date.isValid()) {
+                    if (myDate.isValid()) {
                       $('#calendar').fullCalendar('renderEvent', {
                         title: 'dynamic event',
-                        start: date,
+                        start: myDate,
                         allDay: true
                       });
                       bootbox.alert('Successfully added event');
                       $.ajax({
                           url: '/diary',
                           type: 'post',
-                          contentType: 'application/x-www-form-urlencoded',
-                          data: {"date": myDate, "description", myEventDesc}
+                          contentType: 'application/json',
+                          data: {"date": myDate, "description": myEventDesc},
                           success: function(data){
                               console.log('jQuery success data: ',data);
                           },
