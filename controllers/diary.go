@@ -31,7 +31,7 @@ func (ctrl DiaryController) Create(c *gin.Context) {
 
   var diaryForm forms.DiaryForm
 
-  //Make sure to use lower-case keys ("title", "content") in the form data
+  //Make sure to use lower-case keys in the form data
   if err := c.ShouldBindWith(&diaryForm, binding.Form); err != nil {
     c.JSON(406, gin.H{"message": "Invalid form", "form": diaryForm})
     c.Abort()
