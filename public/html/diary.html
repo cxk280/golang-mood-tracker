@@ -34,19 +34,33 @@
             addEventButton: {
               text: 'add event...',
               click: function() {
-                var date;
-                var eventDesc;
+                let myDate;
+                let myEventDesc;
                 bootbox.prompt('Enter a date in YYYY-MM-DD format.', function(result){
-                  date = moment(result);
+                  myDate = moment(result);
                   bootbox.prompt('Enter a description of your event.', function(result){
-                    eventDesc = result;
+                    myEventDesc = result;
                     if (date.isValid()) {
                       $('#calendar').fullCalendar('renderEvent', {
                         title: 'dynamic event',
                         start: date,
                         allDay: true
                       });
-                      bootbox.alert('Great. Now, update your database...');
+                      bootbox.alert('Successfully added event');
+                      $.ajax({
+                          url: '/diary',
+                          type: 'post',
+                          contentType: 'application/x-www-form-urlencoded',
+                          data: {"date": myDate, "description", myEventDesc}
+                          success: function(data){
+                              console.log('jQuery success data: ',data);
+                          },
+                          error: function(errorThrown){
+                              console.log('jQuery error thrown: ',errorThrown);
+                          }
+                      });
+
+
                     } else {
                       bootbox.alert('Invalid date.');
                     }
