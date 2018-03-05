@@ -20,16 +20,11 @@
       //AJAX get request here to get events
       $.ajax({
         url: '/diary',
-        data: {
-          format: 'json'
-        },
         type: 'GET',
-        error: function() {
-          $('#info').html('<p>An error has occurred</p>');
-        },
-        dataType: 'jsonp',
+        dataType: 'json',
         success: function(data) {
           console.log('Diary GET success');
+          console.log('data: ',data);
         },
         error: function() {
           console.log('Diary GET failure');

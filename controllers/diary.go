@@ -2,7 +2,7 @@ package controllers
 
 import (
   "strconv"
-  "net/http"
+  // "net/http"
   "fmt"
 
   "golang-mood-tracker/forms"
@@ -73,7 +73,7 @@ func (ctrl DiaryController) All(c *gin.Context) {
   fmt.Println("************")
   fmt.Println(" ")
 
-  c.HTML(http.StatusOK, "diary.html", gin.H{"data": data})
+  c.JSON(200, gin.H{"message": "got all diaries", "data": data})
 }
 
 //One ...

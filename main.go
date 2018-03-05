@@ -71,12 +71,12 @@ func main() {
 
 	r.Static("/public", "./public")
 
-	r.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.html", gin.H{
-			"ginBoilerplateVersion": "v0.03",
-			"goVersion":             runtime.Version(),
-		})
-	})
+	// r.GET("/", func(c *gin.Context) {
+	// 	c.HTML(http.StatusOK, "index.html", gin.H{
+	// 		"ginBoilerplateVersion": "v0.03",
+	// 		"goVersion":             runtime.Version(),
+	// 	})
+	// })
 
 	r.GET("/", index.All)
 
