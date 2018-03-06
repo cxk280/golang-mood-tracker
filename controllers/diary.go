@@ -24,7 +24,9 @@ func (ctrl DiaryController) Create(c *gin.Context) {
   userID := getUserID(c)
 
   if userID == 0 {
-    c.JSON(403, gin.H{"message": "Please login first"})
+    c.HTML(http.StatusOK, "error.html", gin.H{
+      "errorMessage": "Please login first.",
+    })
     c.Abort()
     return
   }
@@ -33,7 +35,9 @@ func (ctrl DiaryController) Create(c *gin.Context) {
 
   //Make sure to use lower-case keys in the form data
   if err := c.ShouldBindWith(&diaryForm, binding.Form); err != nil {
-    c.JSON(406, gin.H{"message": "Invalid form", "form": diaryForm})
+    c.HTML(http.StatusOK, "error.html", gin.H{
+      "errorMessage": "Invalid form.",
+    })
     c.Abort()
     return
   }
@@ -41,12 +45,16 @@ func (ctrl DiaryController) Create(c *gin.Context) {
   diaryID, err := diaryModel.Create(userID, diaryForm)
 
   if diaryID > 0 && err != nil {
-    c.JSON(406, gin.H{"message": "diary could not be created", "error": err.Error()})
+    c.HTML(http.StatusOK, "error.html", gin.H{
+      "errorMessage": "Diary could not be created.",
+    })
     c.Abort()
     return
   }
 
-  c.JSON(200, gin.H{"message": "diary created", "id": diaryID})
+  c.HTML(http.StatusOK, "error.html", gin.H{
+    "errorMessage": "Diary created.",
+  })
 }
 
 //All ...
@@ -54,7 +62,9 @@ func (ctrl DiaryController) All(c *gin.Context) {
   userID := getUserID(c)
 
   if userID == 0 {
-    c.JSON(403, gin.H{"message": "Please login first"})
+    c.HTML(http.StatusOK, "error.html", gin.H{
+      "errorMessage": "Please login first.",
+    })
     c.Abort()
     return
   }
@@ -62,18 +72,16 @@ func (ctrl DiaryController) All(c *gin.Context) {
   data, err := diaryModel.All(userID)
 
   if err != nil {
-    c.JSON(406, gin.H{"Message": "Could not get the diaries", "error": err.Error()})
+    c.HTML(http.StatusOK, "error.html", gin.H{
+      "errorMessage": "Could not get the diaries.",
+    })
     c.Abort()
     return
   }
 
-  fmt.Println(" ")
-  fmt.Println("************")
-  fmt.Println("data in diary.All: ",data)
-  fmt.Println("************")
-  fmt.Println(" ")
-
-  c.JSON(200, gin.H{"message": "got all diaries", "data": data})
+  c.HTML(http.StatusOK, "error.html", gin.H{
+    "errorMessage": "Got all diaries.",
+  })
 }
 
 //One ...
@@ -81,7 +89,9 @@ func (ctrl DiaryController) One(c *gin.Context) {
   userID := getUserID(c)
 
   if userID == 0 {
-    c.JSON(403, gin.H{"message": "Please login first"})
+    c.HTML(http.StatusOK, "error.html", gin.H{
+    "errorMessage": "Please login first.",
+  })
     c.Abort()
     return
   }
@@ -93,12 +103,19 @@ func (ctrl DiaryController) One(c *gin.Context) {
     data, err := diaryModel.One(userID, id)
     if err != nil {
       c.JSON(404, gin.H{"Message": "diary not found", "error": err.Error()})
+      c.HTML(http.StatusOK, "error.html", gin.H{
+        "errorMessage": "Diary not found.",
+      })
       c.Abort()
       return
     }
-    c.JSON(200, gin.H{"data": data})
+    c.HTML(http.StatusOK, "error.html", gin.H{
+      "errorMessage": "Data: " + data,
+    })
   } else {
-    c.JSON(404, gin.H{"Message": "Invalid parameter"})
+    c.HTML(http.StatusOK, "error.html", gin.H{
+      "errorMessage": "Invalid parameter.",
+    })
   }
 }
 
@@ -107,7 +124,9 @@ func (ctrl DiaryController) Update(c *gin.Context) {
   userID := getUserID(c)
 
   if userID == 0 {
-    c.JSON(403, gin.H{"message": "Please login first"})
+    c.HTML(http.StatusOK, "error.html", gin.H{
+      "errorMessage": "Please login first.",
+    })
     c.Abort()
     return
   }
@@ -118,20 +137,28 @@ func (ctrl DiaryController) Update(c *gin.Context) {
     var diaryForm forms.DiaryForm
 
     if c.BindJSON(&diaryForm) != nil {
-      c.JSON(406, gin.H{"message": "Invalid parameters", "form": diaryForm})
+      c.HTML(http.StatusOK, "error.html", gin.H{
+        "errorMessage": "Invalid parameters.",
+      })
       c.Abort()
       return
     }
 
     err := diaryModel.Update(userID, id, diaryForm)
     if err != nil {
-      c.JSON(406, gin.H{"Message": "diary could not be updated", "error": err.Error()})
+      c.HTML(http.StatusOK, "error.html", gin.H{
+        "errorMessage": "Diary could not be updated.",
+      })
       c.Abort()
       return
     }
-    c.JSON(200, gin.H{"message": "diary updated"})
+    c.HTML(http.StatusOK, "error.html", gin.H{
+      "errorMessage": "Diary updated.",
+    })
   } else {
-    c.JSON(404, gin.H{"Message": "Invalid parameter", "error": err.Error()})
+    c.HTML(http.StatusOK, "error.html", gin.H{
+      "errorMessage": "Invalid parameter.",
+    })
   }
 }
 
@@ -140,7 +167,9 @@ func (ctrl DiaryController) Delete(c *gin.Context) {
   userID := getUserID(c)
 
   if userID == 0 {
-    c.JSON(403, gin.H{"message": "Please login first"})
+    c.HTML(http.StatusOK, "error.html", gin.H{
+      "errorMessage": "Please login first.",
+    })
     c.Abort()
     return
   }
@@ -150,12 +179,18 @@ func (ctrl DiaryController) Delete(c *gin.Context) {
 
     err := diaryModel.Delete(userID, id)
     if err != nil {
-      c.JSON(406, gin.H{"Message": "diary could not be deleted", "error": err.Error()})
+      c.HTML(http.StatusOK, "error.html", gin.H{
+        "errorMessage": "Diary could not be deleted.",
+      })
       c.Abort()
       return
     }
-    c.JSON(200, gin.H{"message": "diary deleted"})
+    c.HTML(http.StatusOK, "error.html", gin.H{
+      "errorMessage": "Diary deleted.",
+    })
   } else {
-    c.JSON(404, gin.H{"Message": "Invalid parameter"})
+    c.HTML(http.StatusOK, "error.html", gin.H{
+      "errorMessage": "Invalid parameter.",
+    })
   }
 }
