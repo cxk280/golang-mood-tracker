@@ -32,7 +32,7 @@
             let a = new Date(data.data[i].created_at*1000);
             let year = a.getFullYear();
             year = year.toString();
-            let month = a.getMonth();
+            let month = a.getMonth() + 1;
             month = month.toString();
             if (month.length === 1) {
               month = '0' + month;
@@ -46,6 +46,7 @@
 
             eventSourceArr.push({"title": data.data[i].feeling.toString(), "description": data.data[i].notes, "start": formattedTime});
           }
+
           $('#calendar').fullCalendar({
             events: eventSourceArr,
             header: {
