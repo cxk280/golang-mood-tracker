@@ -18,13 +18,12 @@
 
         <div class="jumbotron">
 
-            <!-- <svg id="visualisation" width="1000" height="500"></svg> -->
             <svg id='visualization'></svg>
-            <!-- <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script> -->
             <script src="https://d3js.org/d3.v4.min.js"></script>
             <script>
               $(document).ready(function() {
                   let eventSourceArr = [];
+                  let myData;
                   $.ajax({
                     url: '/diary',
                     type: 'GET',
@@ -33,189 +32,119 @@
                       console.log('Diary GET success');
                       console.log('data: ',data);
 
-                  //     //Need to show days, not just months, in the graph
-                  //     for (let i in data.data) {
+                      for (let i in data.data) {
 
-                  //       //Convert UNIX time to date
-                  //       let a = new Date(data.data[i].created_at*1000);
-                  //       let year = a.getFullYear();
-                  //       year = year.toString();
-                  //       year = year.slice(2);
-                  //       let month = a.getMonth();
-                  //       month = month.toString();
-                  //       if (month.length === 1) {
-                  //         month = '0' + month;
-                  //       }
-                  //       let date = a.getDate();
-                  //       date = date.toString();
-                  //       if (date.length === 1) {
-                  //         date = '0' + date;
-                  //       }
-                  //       let formattedTime = month + '/' + year;
+                        //Convert UNIX time to date
+                        let a = new Date(data.data[i].created_at*1000);
+                        let year = a.getFullYear();
+                        year = year.toString();
+                        year = year.slice(2);
+                        let month = a.getMonth();
+                        month = month.toString();
+                        if (month.length === 1) {
+                          month = '0' + month;
+                        }
+                        let date = a.getDate();
+                        date = date.toString();
+                        if (date.length === 1) {
+                          date = '0' + date;
+                        }
+                        let formattedTime = month + '/' + year;
 
-                  //       eventSourceArr.push({"feeling": data.data[i].feeling, "month": formattedTime});
-                  //       console.log('eventSourceArr: ',eventSourceArr);
-                  //     }
+                        eventSourceArr.push({"feeling": data.data[i].feeling, "month": formattedTime});
+                        console.log('eventSourceArr: ',eventSourceArr);
+                      }
 
-                  //     let sixMonthsAgo;
-                  //     let yearSixMonthsAgo;
+                      let sixMonthsAgo;
+                      let yearSixMonthsAgo;
 
-                  //     if ((parseInt(moment().format('MM')) - 6) > 0) {
-                  //       sixMonthsAgo = parseInt(moment().format('M') - 6);
-                  //       yearSixMonthsAgo = parseInt(moment().format('YYYY'));
-                  //     }
-                  //      else if ((parseInt(moment().format('MM')) - 6) <= 0) {
-                  //       sixMonthsAgo = parseInt(moment().format('M')) + 6;
-                  //       yearSixMonthsAgo = parseInt(moment().format('YYYY')) - 1;
-                  //     };
+                      if ((parseInt(moment().format('MM')) - 6) > 0) {
+                        sixMonthsAgo = parseInt(moment().format('M') - 6);
+                        yearSixMonthsAgo = parseInt(moment().format('YYYY'));
+                      }
+                       else if ((parseInt(moment().format('MM')) - 6) <= 0) {
+                        sixMonthsAgo = parseInt(moment().format('M')) + 6;
+                        yearSixMonthsAgo = parseInt(moment().format('YYYY')) - 1;
+                      };
 
-                  //     let vis = d3.select("#visualisation"),
-                  //         WIDTH = 1000,
-                  //         HEIGHT = 475,
-                  //         MARGINS = {
-                  //             top: 20,
-                  //             right: 20,
-                  //             bottom: 20,
-                  //             left: 50
-                  //         },
-                  //         xScale = d3.time.scale()
-                  //           .domain([new Date(yearSixMonthsAgo, sixMonthsAgo, 1), new Date()])
-                  //           .range([MARGINS.left, WIDTH - MARGINS.right]),
-                  //         yScale = d3.scale.linear().range([HEIGHT - MARGINS.top, MARGINS.bottom]).domain([1, 10]),
-                  //         xAxis = d3.svg.axis()
-                  //           .scale(xScale)
-                  //           .orient("bottom")
-                  //           .ticks(d3.time.months)
-                  //           .tickFormat(d3.time.format("%B")),
-                  //         yAxis = d3.svg.axis()
-                  //           .scale(yScale)
-                  //           .orient("left");
+                      myData = data.data;
+                      let lowestX;
+                      let highestX;
+                      console.log('data.data.length: ',data.data.length);
+                      for (let i in data.data) {
+                        console.log('i: ',i);
+                        console.log('data.data[i].created_at: ',data.data[i].created_at);
+                        console.log()
+                        if (i == 1) {
+                          lowestX = data.data[i].created_at;
+                          highestX = data.data[i].created_at;
+                          console.log('lowestX in first if: ',lowestX);
+                          console.log('highestX in first if: ',highestX);
+                        }
+                        else {
+                          if (data.data[i].created_at < lowestX) {
+                            lowestX = data.data[i].created_at;
+                            console.log('lowestX in second if: ',lowestX);
+                          }
+                          if (data.data[i].created_at > highestX) {
+                            highestX = data.data[i].created_at;
+                            console.log('highestX in second if: ',highestX);
+                          }
+                        }
+                      }
 
-                  //     vis.append("svg:g")
-                  //         .attr("class", "x axis")
-                  //         .attr("transform", "translate(0," + (HEIGHT - MARGINS.bottom) + ")")
-                  //         .call(xAxis);
-                  //     vis.append("svg:g")
-                  //         .attr("class", "y axis")
-                  //         .attr("transform", "translate(" + (MARGINS.left) + ",0)")
-                  //         .call(yAxis);
+                      console.log('lowestX: ',lowestX);
+                      console.log('highestX: ',highestX);
+                      data = myData;
+                      console.log('data that was myData before multiplication: ',data);
+                      for (let i in data) {
+                        console.log('i: ',i);
+                        data[i].created_at = (data[i].created_at * 1000);
+                      }
+                      console.log('data that was myData after multiplication: ',data);
 
+                      let vis = d3.select("#visualization"),
+                        WIDTH = 1000,
+                        HEIGHT = 475,
+                        MARGINS = {
+                          top: 20,
+                          right: 20,
+                          bottom: 20,
+                          left: 50
+                        },
+                      xScale = d3.scaleTime()
+                        .domain([new Date(yearSixMonthsAgo, sixMonthsAgo, 1), new Date()])
+                        .range([MARGINS.left, WIDTH - MARGINS.right]),
+                      yScale = d3.scaleLinear().range([HEIGHT - MARGINS.top, MARGINS.bottom]).domain([1, 10]);
+                      vis.attr("height", HEIGHT).attr('width', WIDTH)
+                      vis.append("g")
+                        .attr("class", "x axis")
+                        .attr("transform", "translate(0," + (HEIGHT - MARGINS.bottom) + ")")
+                        .call(d3.axisBottom(xScale).tickFormat(d3.timeFormat("%b")));
+                      vis.append("g")
+                        .attr("class", "y axis")
+                        .attr("transform", "translate(" + (MARGINS.left) + ",0)")
+                        .call(d3.axisLeft(yScale));
 
-                  //     let lineGen = d3.svg.line()
-                  //         .x(function(d) {
-                  //             // let formatDate = d3.time.format("%-m/%y");
-                  //             let formatDate = d3.time.format("%-j");
-                  //             let monthData = formatDate.parse(d.month);
-                  //             console.log('formatDate: ',formatDate);
-                  //             console.log('monthData: ',monthData);
-                  //             return xScale(monthData);
-                  //             // return xScale(d.created_at);
-                  //         })
-                  //         .y(function(d) {
-                  //             return yScale(parseInt(d.feeling));
-                  //         })
-                  //         .interpolate("basis");
-                  //     vis.append('svg:path')
-                  //         .attr('d', lineGen(eventSourceArr))
-                  //         .attr('stroke', 'blue')
-                  //         .attr('stroke-width', 2)
-                  //         .attr('fill', 'none');
+                      let lineGen = d3.line()
+                        .x(function(d) {
+                          return xScale(+d.created_at);
+                        })
+                        .y(function(d) {
+                          return yScale(+d.feeling);
+                        });
 
-                      // let vis = d3.select("#visualization"),
-                      //   WIDTH = 1000,
-                      //   HEIGHT = 475,
-                      //   MARGINS = {
-                      //     top: 20,
-                      //     right: 20,
-                      //     bottom: 20,
-                      //     left: 50
-                      //   },
-                      //   xScale = d3.scaleTime()
-                      //   .domain([1520273146000, 1520273288000])
-                      //   .range([MARGINS.left, WIDTH - MARGINS.right]),
-                      //   yScale = d3.scaleLinear().range([HEIGHT - MARGINS.top, MARGINS.bottom]).domain([1, 10]);
-                      // vis.attr("height", HEIGHT).attr('width', WIDTH)
-                      // vis.append("g")
-                      //   .attr("class", "x axis")
-                      //   .attr("transform", "translate(0," + (HEIGHT - MARGINS.bottom) + ")")
-                      //   .call(d3.axisBottom(xScale).tickFormat(d3.timeFormat("%b")));
-                      // vis.append("g")
-                      //   .attr("class", "y axis")
-                      //   .attr("transform", "translate(" + (MARGINS.left) + ",0)")
-                      //   .call(d3.axisLeft(yScale));
-
-                      // let lineGen = d3.line()
-                      //   .x(function(d) {
-                      //     return xScale(+d.created_at);
-                      //   })
-                      //   .y(function(d) {
-                      //     return yScale(+d.feeling);
-                      //   });
-
-                      // vis.datum(data).append('path')
-                      //   .attr("class", "genLine")
-                      //   .attr('d', lineGen)
-                      //   .attr('stroke', 'blue')
-                      //   .attr('stroke-width', 2)
-                      //   .attr('fill', 'none');
+                      vis.datum(data).append('path')
+                        .attr("class", "genLine")
+                        .attr('d', lineGen)
+                        .attr('stroke', 'blue')
+                        .attr('stroke-width', 2)
+                        .attr('fill', 'none');
                       },
                       error: function() {
                         console.log('Diary GET failure');
                       }
                   });
-                //   var data = [{
-                //     "id": 2,
-                //     "feeling": 3,
-                //     "notes": "Had a bad day",
-                //     "updated_at": 1520273147000,
-                //     "created_at": 1520273147000
-                //   },
-                //   {
-                //     "id": 3,
-                //     "feeling": 5,
-                //     "notes": "Had a bad day",
-                //     "updated_at": 1520273287000,
-                //     "created_at": 1520273287000
-                //   }
-                // ];
-
-                // let vis = d3.select("#visualization"),
-                //   WIDTH = 1000,
-                //   HEIGHT = 475,
-                //   MARGINS = {
-                //     top: 20,
-                //     right: 20,
-                //     bottom: 20,
-                //     left: 50
-                //   },
-                //   xScale = d3.scaleTime()
-                //   .domain([1520273146000, 1520273288000])
-                //   .range([MARGINS.left, WIDTH - MARGINS.right]),
-                //   yScale = d3.scaleLinear().range([HEIGHT - MARGINS.top, MARGINS.bottom]).domain([1, 10]);
-                // vis.attr("height", HEIGHT).attr('width', WIDTH)
-                // vis.append("g")
-                //   .attr("class", "x axis")
-                //   .attr("transform", "translate(0," + (HEIGHT - MARGINS.bottom) + ")")
-                //   .call(d3.axisBottom(xScale).tickFormat(d3.timeFormat("%b")));
-                // vis.append("g")
-                //   .attr("class", "y axis")
-                //   .attr("transform", "translate(" + (MARGINS.left) + ",0)")
-                //   .call(d3.axisLeft(yScale));
-
-                // let lineGen = d3.line()
-                //   .x(function(d) {
-                //     return xScale(+d.created_at);
-                //   })
-                //   .y(function(d) {
-                //     return yScale(+d.feeling);
-                //   });
-
-                // vis.datum(data).append('path')
-                //   .attr("class", "genLine")
-                //   .attr('d', lineGen)
-                //   .attr('stroke', 'blue')
-                //   .attr('stroke-width', 2)
-                //   .attr('fill', 'none');
               });
             </script>
         </div>
