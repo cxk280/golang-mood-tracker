@@ -101,9 +101,13 @@
 
                       let lineGen = d3.svg.line()
                           .x(function(d) {
-                              let formatDate = d3.time.format("%-m/%y");
+                              // let formatDate = d3.time.format("%-m/%y");
+                              let formatDate = d3.time.format("%-j");
                               let monthData = formatDate.parse(d.month);
+                              console.log('formatDate: ',formatDate);
+                              console.log('monthData: ',monthData);
                               return xScale(monthData);
+                              // return xScale(d.created_at);
                           })
                           .y(function(d) {
                               return yScale(parseInt(d.feeling));
