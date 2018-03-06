@@ -64,7 +64,6 @@ func main() {
 	analytics 	:= new(controllers.AnalyticsController)
 	dashboard 	:= new(controllers.DashboardController)
 	diary 			:= new(controllers.DiaryController)
-	feed 				:= new(controllers.FeedController)
 	index 			:= new(controllers.IndexController)
 
 	r.LoadHTMLGlob("./public/html/*.html")
@@ -102,12 +101,6 @@ func main() {
 		c.HTML(http.StatusOK, "diary.html", gin.H{
 		})
 	})
-
-	r.POST("/feed", feed.Create)
-	r.GET("/feed", feed.All)
-	r.GET("/feed/:id", feed.One)
-	r.PUT("/feed/:id", feed.Update)
-	r.DELETE("/feed/:id", feed.Delete)
 
 	r.POST("/login", user.Signin)
 

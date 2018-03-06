@@ -156,42 +156,6 @@ ALTER TABLE analytics_id_seq OWNER TO postgres;
 ALTER SEQUENCE analytics_id_seq OWNED BY analytics.id;
 
 --
--- Name: feed; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
---
-
-CREATE TABLE feed (
-    id integer NOT NULL,
-    user_id integer,
-    title character varying,
-    content text,
-    updated_at integer,
-    created_at integer
-);
-
-
-ALTER TABLE feed OWNER TO postgres;
-
---
--- Name: feed_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE feed_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE feed_id_seq OWNER TO postgres;
-
---
--- Name: feed_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE feed_id_seq OWNED BY feed.id;
-
---
 -- Name: article; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
@@ -281,12 +245,6 @@ ALTER TABLE ONLY analytics ALTER COLUMN id SET DEFAULT nextval('analytics_id_seq
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY feed ALTER COLUMN id SET DEFAULT nextval('feed_id_seq'::regclass);
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
 ALTER TABLE ONLY article ALTER COLUMN id SET DEFAULT nextval('article_id_seq'::regclass);
 
 
@@ -323,20 +281,6 @@ COPY analytics (id, user_id, title, content, updated_at, created_at) FROM stdin;
 --
 
 SELECT pg_catalog.setval('analytics_id_seq', 1, false);
-
---
--- Data for Name: feed; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY feed (id, user_id, title, content, updated_at, created_at) FROM stdin;
-\.
-
-
---
--- Name: feed_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('feed_id_seq', 1, false);
 
 --
 -- Data for Name: article; Type: TABLE DATA; Schema: public; Owner: postgres
@@ -380,13 +324,6 @@ ALTER TABLE ONLY diary
 
 ALTER TABLE ONLY analytics
     ADD CONSTRAINT analytics_id PRIMARY KEY (id);
-
---
--- Name: feed_id; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
---
-
-ALTER TABLE ONLY feed
-    ADD CONSTRAINT feed_id PRIMARY KEY (id);
 
 --
 -- Name: article_id; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
@@ -435,21 +372,6 @@ ALTER TABLE ONLY analytics
 CREATE TRIGGER create_analytics_created_at BEFORE INSERT ON analytics FOR EACH ROW EXECUTE PROCEDURE created_at_column();
 
 --
--- Name: feed_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY feed
-    ADD CONSTRAINT feed_user_id FOREIGN KEY (user_id) REFERENCES "user"(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- TOC entry 2284 (class 2620 OID 36647)
--- Name: feed create_feed_created_at; Type: TRIGGER; Schema: public; Owner: postgres
---
-
-CREATE TRIGGER create_feed_created_at BEFORE INSERT ON feed FOR EACH ROW EXECUTE PROCEDURE created_at_column();
-
---
 -- Name: article_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -485,13 +407,6 @@ CREATE TRIGGER update_diary_updated_at BEFORE UPDATE ON diary FOR EACH ROW EXECU
 --
 
 CREATE TRIGGER update_analytics_updated_at BEFORE UPDATE ON analytics FOR EACH ROW EXECUTE PROCEDURE update_at_column();
-
---
--- TOC entry 2285 (class 2620 OID 36648)
--- Name: feed update_feed_updated_at; Type: TRIGGER; Schema: public; Owner: postgres
---
-
-CREATE TRIGGER update_feed_updated_at BEFORE UPDATE ON feed FOR EACH ROW EXECUTE PROCEDURE update_at_column();
 
 --
 -- TOC entry 2285 (class 2620 OID 36648)
