@@ -7,6 +7,7 @@
   <title>{{ .title }}</title>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+  <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="./public/stylesheets/styles.css">
 </head>
@@ -20,88 +21,99 @@
             <svg id="visualisation" width="1000" height="500"></svg>
             <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
             <script>
-                function InitChart() {
-                    let data = [{
-                        "feeling": "5",
-                        "month": "09/17"
-                    }, {
-                        "feeling": "5",
-                        "month": "10/17"
-                    }, {
-                        "feeling": "7",
-                        "month": "11/17"
-                    }, {
-                        "feeling": "2",
-                        "month": "12/17"
-                    }, {
-                        "feeling": "9",
-                        "month": "1/18"
-                    }, {
-                        "feeling": "4",
-                        "month": "2/18"
-                    }];
+              $(document).ready(function() {
+                  let eventSourceArr = [];
+                  $.ajax({
+                    url: '/diary',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                      console.log('Diary GET success');
+                      console.log('data: ',data);
+                      for (let i in data.data) {
 
-                    let sixMonthsAgo;
-                    let yearSixMonthsAgo;
+                        //Convert UNIX time to date
+                        let a = new Date(data.data[i].created_at*1000);
+                        let year = a.getFullYear();
+                        year = year.toString();
+                        year = year.slice(2);
+                        let month = a.getMonth();
+                        month = month.toString();
+                        if (month.length === 1) {
+                          month = '0' + month;
+                        }
+                        let formattedTime = month + '/' + year;
 
-                    if ((parseInt(moment().format('MM')) - 6) > 0) {
-                      sixMonthsAgo = parseInt(moment().format('M') - 6);
-                      yearSixMonthsAgo = parseInt(moment().format('YYYY'));
-                    }
-                     else if ((parseInt(moment().format('MM')) - 6) <= 0) {
-                      sixMonthsAgo = parseInt(moment().format('M')) + 6;
-                      yearSixMonthsAgo = parseInt(moment().format('YYYY')) - 1;
-                    };
+                        eventSourceArr.push({"feeling": data.data[i].feeling, "month": formattedTime});
+                        console.log('eventSourceArr: ',eventSourceArr);
+                      }
 
-                    let vis = d3.select("#visualisation"),
-                        WIDTH = 1000,
-                        HEIGHT = 475,
-                        MARGINS = {
-                            top: 20,
-                            right: 20,
-                            bottom: 20,
-                            left: 50
-                        },
-                        xScale = d3.time.scale()
-                          .domain([new Date(yearSixMonthsAgo, sixMonthsAgo, 1), new Date()])
-                          .range([MARGINS.left, WIDTH - MARGINS.right]),
-                        yScale = d3.scale.linear().range([HEIGHT - MARGINS.top, MARGINS.bottom]).domain([1, 10]),
-                        xAxis = d3.svg.axis()
-                          .scale(xScale)
-                          .orient("bottom")
-                          .ticks(d3.time.months)
-                          .tickFormat(d3.time.format("%B")),
-                        yAxis = d3.svg.axis()
-                          .scale(yScale)
-                          .orient("left");
+                      let sixMonthsAgo;
+                      let yearSixMonthsAgo;
 
-                    vis.append("svg:g")
-                        .attr("class", "x axis")
-                        .attr("transform", "translate(0," + (HEIGHT - MARGINS.bottom) + ")")
-                        .call(xAxis);
-                    vis.append("svg:g")
-                        .attr("class", "y axis")
-                        .attr("transform", "translate(" + (MARGINS.left) + ",0)")
-                        .call(yAxis);
+                      if ((parseInt(moment().format('MM')) - 6) > 0) {
+                        sixMonthsAgo = parseInt(moment().format('M') - 6);
+                        yearSixMonthsAgo = parseInt(moment().format('YYYY'));
+                      }
+                       else if ((parseInt(moment().format('MM')) - 6) <= 0) {
+                        sixMonthsAgo = parseInt(moment().format('M')) + 6;
+                        yearSixMonthsAgo = parseInt(moment().format('YYYY')) - 1;
+                      };
+
+                      let vis = d3.select("#visualisation"),
+                          WIDTH = 1000,
+                          HEIGHT = 475,
+                          MARGINS = {
+                              top: 20,
+                              right: 20,
+                              bottom: 20,
+                              left: 50
+                          },
+                          xScale = d3.time.scale()
+                            .domain([new Date(yearSixMonthsAgo, sixMonthsAgo, 1), new Date()])
+                            .range([MARGINS.left, WIDTH - MARGINS.right]),
+                          yScale = d3.scale.linear().range([HEIGHT - MARGINS.top, MARGINS.bottom]).domain([1, 10]),
+                          xAxis = d3.svg.axis()
+                            .scale(xScale)
+                            .orient("bottom")
+                            .ticks(d3.time.months)
+                            .tickFormat(d3.time.format("%B")),
+                          yAxis = d3.svg.axis()
+                            .scale(yScale)
+                            .orient("left");
+
+                      vis.append("svg:g")
+                          .attr("class", "x axis")
+                          .attr("transform", "translate(0," + (HEIGHT - MARGINS.bottom) + ")")
+                          .call(xAxis);
+                      vis.append("svg:g")
+                          .attr("class", "y axis")
+                          .attr("transform", "translate(" + (MARGINS.left) + ",0)")
+                          .call(yAxis);
 
 
-                    let lineGen = d3.svg.line()
-                        .x(function(d) {
-                            let formatDate = d3.time.format("%-m/%y");
-                            let monthData = formatDate.parse(d.month);
-                            return xScale(monthData);
-                        })
-                        .y(function(d) {
-                            return yScale(parseInt(d.feeling));
-                        })
-                        .interpolate("basis");
-                    vis.append('svg:path')
-                        .attr('d', lineGen(data))
-                        .attr('stroke', 'blue')
-                        .attr('stroke-width', 2)
-                        .attr('fill', 'none');
-                }
-                InitChart();
+                      let lineGen = d3.svg.line()
+                          .x(function(d) {
+                              let formatDate = d3.time.format("%-m/%y");
+                              let monthData = formatDate.parse(d.month);
+                              return xScale(monthData);
+                          })
+                          .y(function(d) {
+                              return yScale(parseInt(d.feeling));
+                          })
+                          .interpolate("basis");
+                      vis.append('svg:path')
+                          .attr('d', lineGen(eventSourceArr))
+                          .attr('stroke', 'blue')
+                          .attr('stroke-width', 2)
+                          .attr('fill', 'none');
+
+                      },
+                      error: function() {
+                        console.log('Diary GET failure');
+                      }
+                  });
+              });
             </script>
         </div>
     </div>

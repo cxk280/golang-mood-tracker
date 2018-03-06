@@ -18,7 +18,6 @@
   <script>
     $(document).ready(function() {
       let eventSourceArr = [];
-      console.log('Array.isArray(eventSourceArr): ',Array.isArray(eventSourceArr));
       $.ajax({
         url: '/diary',
         type: 'GET',
@@ -46,14 +45,6 @@
 
             eventSourceArr.push({"title": data.data[i].feeling.toString(), "description": data.data[i].notes, "start": formattedTime});
           }
-          console.log('eventSourceArr: ',eventSourceArr);
-          console.log('eventSourceArr.length: ',eventSourceArr.length);
-          console.log('Array.isArray(eventSourceArr): ',Array.isArray(eventSourceArr));
-          for (let i in eventSourceArr) {
-            console.log('eventSourceArr' + i +': ' + eventSourceArr[i].title);
-            console.log('eventSourceArr' + i +': ' + eventSourceArr[i].description);
-            console.log('eventSourceArr' + i +': ' + eventSourceArr[i].start);
-          }
           $('#calendar').fullCalendar({
             events: eventSourceArr,
             header: {
@@ -72,7 +63,7 @@
         error: function() {
           console.log('Diary GET failure');
         }
-      })
+      });
     });
   </script>
 
