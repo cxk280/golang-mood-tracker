@@ -44,6 +44,11 @@
                         if (month.length === 1) {
                           month = '0' + month;
                         }
+                        let date = a.getDate();
+                        date = date.toString();
+                        if (date.length === 1) {
+                          date = '0' + date;
+                        }
                         let formattedTime = month + '/' + year;
 
                         eventSourceArr.push({"feeling": data.data[i].feeling, "month": formattedTime});
