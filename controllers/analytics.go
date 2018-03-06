@@ -108,9 +108,7 @@ func (ctrl AnalyticsController) One(c *gin.Context) {
       c.Abort()
       return
     }
-    c.HTML(http.StatusOK, "error.html", gin.H{
-      "errorMessage": "Data: " + data,
-    })
+    c.JSON(406, gin.H{"data": data })
   } else {
     c.HTML(http.StatusOK, "error.html", gin.H{
       "errorMessage": "Invalid parameter.",
@@ -145,7 +143,9 @@ func (ctrl AnalyticsController) Update(c *gin.Context) {
 
     err := analyticsModel.Update(userID, id, analyticsForm)
     if err != nil {
-      c.JSON(406, gin.H{"Message": "analytics could not be updated", "error": err.Error()})
+      c.HTML(http.StatusOK, "error.html", gin.H{
+        "errorMessage": "Analytics could not be updated.",
+      })
       c.Abort()
       return
     }

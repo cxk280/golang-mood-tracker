@@ -2,8 +2,7 @@ package controllers
 
 import (
   "strconv"
-  // "net/http"
-  "fmt"
+  "net/http"
 
   "golang-mood-tracker/forms"
   "golang-mood-tracker/models"
@@ -102,7 +101,6 @@ func (ctrl DiaryController) One(c *gin.Context) {
 
     data, err := diaryModel.One(userID, id)
     if err != nil {
-      c.JSON(404, gin.H{"Message": "diary not found", "error": err.Error()})
       c.HTML(http.StatusOK, "error.html", gin.H{
         "errorMessage": "Diary not found.",
       })
@@ -110,7 +108,7 @@ func (ctrl DiaryController) One(c *gin.Context) {
       return
     }
     c.HTML(http.StatusOK, "error.html", gin.H{
-      "errorMessage": "Data: " + data,
+      c.JSON(406, gin.H{"data": data })
     })
   } else {
     c.HTML(http.StatusOK, "error.html", gin.H{
