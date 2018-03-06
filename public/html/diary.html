@@ -17,7 +17,8 @@
 
   <script>
     $(document).ready(function() {
-      let eventsArr = [];
+      let eventSourceArr = [];
+      console.log('Array.isArray(eventSourceArr): ',Array.isArray(eventSourceArr));
       $.ajax({
         url: '/diary',
         type: 'GET',
@@ -29,42 +30,48 @@
 
             //Convert UNIX time to date
             let a = new Date(data.data[i].created_at*1000);
-            let months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
             let year = a.getFullYear();
-            let month = months[a.getMonth()];
+            year = year.toString();
+            let month = a.getMonth();
+            month = month.toString();
+            if (month.length === 1) {
+              month = '0' + month;
+            }
             let date = a.getDate();
-            let formattedTime = date + ' ' + month + ' ' + year;
+            date = date.toString();
+            if (date.length === 1) {
+              date = '0' + date;
+            }
+            let formattedTime = year + '-' + month + '-' + date;
 
-            eventsArr.push({"feeling": data.data[i].feeling,"notes": data.data[i].notes, "date": formattedTime })
+            eventSourceArr.push({"title": data.data[i].feeling.toString(), "description": data.data[i].notes, "start": formattedTime});
           }
-          console.log('eventsArr: ',eventsArr);
+          console.log('eventSourceArr: ',eventSourceArr);
+          console.log('eventSourceArr.length: ',eventSourceArr.length);
+          console.log('Array.isArray(eventSourceArr): ',Array.isArray(eventSourceArr));
+          for (let i in eventSourceArr) {
+            console.log('eventSourceArr' + i +': ' + eventSourceArr[i].title);
+            console.log('eventSourceArr' + i +': ' + eventSourceArr[i].description);
+            console.log('eventSourceArr' + i +': ' + eventSourceArr[i].start);
+          }
+          $('#calendar').fullCalendar({
+            events: eventSourceArr,
+            header: {
+              left: '',
+              center: 'prev title next',
+              right: ''
+            },
+            eventClick:  function(event, jsEvent, view) {
+                $('#modalTitle').html(event.title);
+                $('#modalBody').html(event.description);
+                $('#eventUrl').attr('href',event.url);
+                $('#fullCalModal').modal();
+            }
+          });
         },
         error: function() {
           console.log('Diary GET failure');
         }
-      })
-      $('#calendar').fullCalendar({
-          events: [
-            {
-                title: 'Event1',
-                start: '2018-03-04'
-            },
-            {
-                title: 'Event2',
-                start: '2018-03-26'
-            }
-          ],
-          header: {
-            left: '',
-            center: 'prev title next',
-            right: ''
-          },
-          eventClick:  function(event, jsEvent, view) {
-              $('#modalTitle').html(event.title);
-              $('#modalBody').html(event.description);
-              $('#eventUrl').attr('href',event.url);
-              $('#fullCalModal').modal();
-          }
       })
     });
   </script>
