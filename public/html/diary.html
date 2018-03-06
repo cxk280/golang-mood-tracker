@@ -62,6 +62,21 @@
         },
         error: function() {
           console.log('Diary GET failure--there are no diaries');
+          $('#calendar').fullCalendar({
+            events: eventSourceArr,
+            header: {
+              left: '',
+              center: 'prev title next',
+              right: ''
+            },
+            eventClick:  function(event, jsEvent, view) {
+                $('#modalTitle').html(event.title);
+                $('#modalBody').html(event.description);
+                $('#eventUrl').attr('href',event.url);
+                $('#fullCalModal').modal();
+            }
+          });
+          $('#calendar').empty().append('<center><p class="text-white">You currently have no diary entries.</p></center>');
         }
       });
     });

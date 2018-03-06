@@ -1,10 +1,8 @@
 package controllers
 
 import (
-  // "strconv"
   "net/http"
 
-  // "golang-mood-tracker/forms"
   "golang-mood-tracker/models"
 
   "github.com/gin-gonic/gin"
@@ -46,23 +44,15 @@ var indexModel = new(models.IndexModel)
 
 //All ...
 func (ctrl IndexController) All(c *gin.Context) {
-  // userID := getUserID(c)
+  userID := getUserID(c)
 
-  // if userID == 0 {
-  //   c.JSON(403, gin.H{"message": "Please login first"})
-  //   c.Abort()
-  //   return
-  // }
-
-  // data, err := indexModel.All(userID)
-
-  // if err != nil {
-  //   c.JSON(406, gin.H{"Message": "Could not get the indexs", "error": err.Error()})
-  //   c.Abort()
-  //   return
-  // }
-
-  // c.JSON(200, gin.H{"data": data})
+  if userID == 0 {
+    c.HTML(http.StatusOK, "error.html", gin.H{
+      "errorMessage": "Please login first.",
+    })
+    c.Abort()
+    return
+  }
 
   c.HTML(http.StatusOK, "index.html", gin.H{
       })
