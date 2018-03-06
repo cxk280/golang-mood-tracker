@@ -30,6 +30,8 @@
                     success: function(data) {
                       console.log('Diary GET success');
                       console.log('data: ',data);
+
+                      //Need to show days, not just months, in the graph
                       for (let i in data.data) {
 
                         //Convert UNIX time to date
