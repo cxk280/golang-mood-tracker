@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"net/http"
-	// "runtime"
 
 	"golang-mood-tracker/db"
 	"golang-mood-tracker/controllers"
@@ -50,13 +49,6 @@ func main() {
 
 	r.Static("/public", "./public")
 
-	// r.GET("/", func(c *gin.Context) {
-		// c.HTML(http.StatusOK, "index.html", gin.H{
-		// 	"ginBoilerplateVersion": "v0.03",
-		// 	"goVersion":             runtime.Version(),
-		// })
-	// })
-
 	r.GET("/", index.All)
 
 	r.GET("/signup", func(c *gin.Context) {
@@ -82,7 +74,7 @@ func main() {
 
 	r.POST("/signup", user.Signup)
 
-	r.POST("/signout", user.Signout)
+	r.GET("/signout", user.Signout)
 
 	r.NoRoute(func(c *gin.Context) {
 		c.HTML(404, "404.html", gin.H{})

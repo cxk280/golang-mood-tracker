@@ -44,15 +44,15 @@ var indexModel = new(models.IndexModel)
 
 //All ...
 func (ctrl IndexController) All(c *gin.Context) {
-  userID := getUserID(c)
+  // userID := getUserID(c)
 
-  if userID == 0 {
-    c.HTML(http.StatusOK, "error.html", gin.H{
-      "errorMessage": "Please login first.",
-    })
-    c.Abort()
-    return
-  }
+  // if userID == 0 {
+  //   c.HTML(http.StatusOK, "error.html", gin.H{
+  //     "errorMessage": "Please login first.",
+  //   })
+  //   c.Abort()
+  //   return
+  // }
 
   c.HTML(http.StatusOK, "index.html", gin.H{
       })

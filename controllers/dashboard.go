@@ -46,13 +46,15 @@ var dashboardModel = new(models.DashboardModel)
 
 //All ...
 func (ctrl DashboardController) All(c *gin.Context) {
-  // userID := getUserID(c)
+  userID := getUserID(c)
 
-  // if userID == 0 {
-  //   c.JSON(403, gin.H{"message": "Please login first"})
-  //   c.Abort()
-  //   return
-  // }
+  if userID == 0 {
+    c.HTML(http.StatusOK, "error.html", gin.H{
+      "errorMessage": "Please login first.",
+    })
+    c.Abort()
+    return
+  }
 
   // data, err := dashboardModel.All(userID)
 

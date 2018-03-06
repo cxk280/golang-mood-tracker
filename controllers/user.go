@@ -3,7 +3,6 @@ package controllers
 import (
 
   "fmt"
-  // "log"
   "net/http"
 
 	"golang-mood-tracker/forms"
@@ -50,7 +49,9 @@ func (ctrl UserController) Signin(c *gin.Context) {
 	fmt.Println(signinForm)
 
   if err := c.ShouldBindWith(&signinForm, binding.Form); err != nil {
-	  c.JSON(406, gin.H{"message": "Invalid signin form", "form": signinForm})
+	  c.HTML(http.StatusOK, "error.html", gin.H{
+	    "errorMessage": "Invalid signin form.",
+	  })
 	  c.Abort()
 	  return
   }
@@ -73,7 +74,9 @@ func (ctrl UserController) Signin(c *gin.Context) {
 
 		c.Redirect(http.StatusMovedPermanently, "/dashboard")
 	} else {
-		c.JSON(406, gin.H{"message": "Invalid signin details", "error": err.Error()})
+		c.HTML(http.StatusOK, "error.html", gin.H{
+	    "errorMessage": "Invalid signin details.",
+	  })
 	}
 
 }
@@ -84,7 +87,9 @@ func (ctrl UserController) Signup(c *gin.Context) {
 	var signupForm forms.SignupForm
 
 	if err := c.ShouldBindWith(&signupForm, binding.Form); err != nil {
-	  c.JSON(406, gin.H{"message": "Invalid signup form", "form": signupForm})
+	  c.HTML(http.StatusOK, "error.html", gin.H{
+	    "errorMessage": "Invalid signup form.",
+	  })
 	  c.Abort()
 	  return
   }
@@ -92,7 +97,9 @@ func (ctrl UserController) Signup(c *gin.Context) {
 	user, err := userModel.Signup(signupForm)
 
 	if err != nil {
-		c.JSON(406, gin.H{"message": err.Error()})
+		c.HTML(http.StatusOK, "error.html", gin.H{
+	    "errorMessage": "Invalid form.",
+	  })
 		c.Abort()
 		return
 	}
@@ -102,15 +109,33 @@ func (ctrl UserController) Signup(c *gin.Context) {
 		c.Redirect(http.StatusMovedPermanently, "/")
 
 	} else {
-		c.JSON(406, gin.H{"message": "Could not signup this user", "error": err.Error()})
+		c.HTML(http.StatusOK, "error.html", gin.H{
+    "errorMessage": "Could not sign up this user.",
+  })
 	}
 
 }
 
 //Signout ...
 func (ctrl UserController) Signout(c *gin.Context) {
+
+	userID := getUserID(c)
+
+	fmt.Println(userID)
+
+  if userID == 0 {
+    c.HTML(http.StatusOK, "error.html", gin.H{
+      "errorMessage": "No user is logged in currently, so you can't sign out...",
+    })
+    c.Abort()
+    return
+  }
+
+
 	session := sessions.Default(c)
 	session.Clear()
 	session.Save()
-	c.JSON(200, gin.H{"message": "Signed out..."})
+	c.HTML(http.StatusOK, "error.html", gin.H{
+    "errorMessage": "Signed out.",
+  })
 }
