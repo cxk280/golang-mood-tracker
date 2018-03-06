@@ -3,6 +3,7 @@ package controllers
 import (
   "strconv"
   "net/http"
+  "fmt"
 
   "golang-mood-tracker/forms"
   "golang-mood-tracker/models"
@@ -70,6 +71,8 @@ func (ctrl DiaryController) All(c *gin.Context) {
 
   data, err := diaryModel.All(userID)
 
+  fmt.Println(data)
+
   if err != nil {
     c.HTML(http.StatusOK, "error.html", gin.H{
       "errorMessage": "Could not get the diaries.",
@@ -78,8 +81,7 @@ func (ctrl DiaryController) All(c *gin.Context) {
     return
   }
 
-  c.HTML(http.StatusOK, "error.html", gin.H{
-    "errorMessage": "Got all diaries.",
+  c.HTML(http.StatusOK, "diary.html", gin.H{
   })
 }
 
@@ -107,9 +109,7 @@ func (ctrl DiaryController) One(c *gin.Context) {
       c.Abort()
       return
     }
-    c.HTML(http.StatusOK, "error.html", gin.H{
-      c.JSON(406, gin.H{"data": data })
-    })
+    c.JSON(200, gin.H{"data": data})
   } else {
     c.HTML(http.StatusOK, "error.html", gin.H{
       "errorMessage": "Invalid parameter.",

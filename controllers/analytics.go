@@ -81,7 +81,7 @@ func (ctrl AnalyticsController) All(c *gin.Context) {
   }
 
   c.HTML(http.StatusOK, "analytics.html", gin.H{
-    })
+  })
 }
 
 //One ...
@@ -108,7 +108,7 @@ func (ctrl AnalyticsController) One(c *gin.Context) {
       c.Abort()
       return
     }
-    c.JSON(406, gin.H{"data": data })
+    c.JSON(406, gin.H{"data": data})
   } else {
     c.HTML(http.StatusOK, "error.html", gin.H{
       "errorMessage": "Invalid parameter.",
