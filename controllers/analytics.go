@@ -50,7 +50,9 @@ func (ctrl AnalyticsController) Create(c *gin.Context) {
     return
   }
 
-  c.JSON(200, gin.H{"message": "analytics created", "id": analyticsID})
+  c.HTML(http.StatusOK, "error.html", gin.H{
+      "errorMessage": "Analytics created.",
+    })
 }
 
 //All ...

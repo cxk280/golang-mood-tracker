@@ -20,6 +20,10 @@ var diaryModel = new(models.DiaryModel)
 // //Create ...
 func (ctrl DiaryController) Create(c *gin.Context) {
 
+  feelingValue := c.PostForm("feeling");
+  fmt.Println("feelingValue")
+  fmt.Println(feelingValue)
+
   //Sign in via the browser with redis-server running or in Postman directly in order for Create to increment properly
   userID := getUserID(c)
 
@@ -71,6 +75,7 @@ func (ctrl DiaryController) All(c *gin.Context) {
 
   data, err := diaryModel.All(userID)
 
+  fmt.Println("data in diary.All")
   fmt.Println(data)
 
   if err != nil {
@@ -81,8 +86,7 @@ func (ctrl DiaryController) All(c *gin.Context) {
     return
   }
 
-  c.HTML(http.StatusOK, "diary.html", gin.H{
-  })
+  c.JSON(200, gin.H{"data": data})
 }
 
 //One ...

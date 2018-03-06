@@ -70,6 +70,11 @@ func main() {
 	r.PUT("/diary/:id", diary.Update)
 	r.DELETE("/diary/:id", diary.Delete)
 
+	r.GET("/diaryPage", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "diary.html", gin.H{
+		})
+	})
+
 	r.POST("/login", user.Signin)
 
 	r.POST("/signup", user.Signup)
