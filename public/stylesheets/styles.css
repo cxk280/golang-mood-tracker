@@ -255,6 +255,15 @@ input[type="radio"] {
   margin-top: 10vh;
 }
 
+#dashboard-answered-text {
+  font-family: "Source Sans Pro";
+  font-weight: bold;
+  font-size: 30px;
+  color: #7FC347;
+  text-shadow: 1.93px 1.93px 0px rgba(1,1,1,0.5);
+  margin-top: 10vh;
+}
+
 #dashboard-form {
   margin-bottom: 2vh;
 }

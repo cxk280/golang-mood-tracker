@@ -75,6 +75,16 @@ func main() {
 		})
 	})
 
+	r.GET("/dashboard_answered", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "dashboard_answered.html", gin.H{
+		})
+	})
+
+	r.GET("/dashboard_unanswered", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "dashboard_unanswered.html", gin.H{
+		})
+	})
+
 	// r.GET("/error", func(c *gin.Context) {
 	// 	c.HTML(http.StatusOK, "error.html", gin.H{
 	// 		"errorMessage": "This is an error",

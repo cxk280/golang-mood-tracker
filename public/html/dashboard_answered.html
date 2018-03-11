@@ -13,8 +13,11 @@
   <link rel="stylesheet" type="text/css" href="./public/stylesheets/styles.css">
 </head>
 <body class="">
-  <div class="container">
-    <h3>It looks like you've already told us how you feel today. Choose another option above.</h3>
-  </div>
+  {{ template "header.html" .}}
+  <center>
+    <div>
+      <h3 id="dashboard-answered-text">It looks like you've already told us how you feel today. Choose another option above.</h3>
+    </div>
+  </center>
 </body>
 </html>

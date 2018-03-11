@@ -19,6 +19,7 @@
     $(document).ready(function() {
       $("#calendar").css("margin","6vh 5vw 7vh 5vw");
       let eventSourceArr = [];
+      let dateArr = [];
       $.ajax({
         url: '/diary',
         type: 'GET',
@@ -44,7 +45,27 @@
             }
             let formattedTime = year + '-' + month + '-' + date;
 
+            console.log('formattedTime: ',formattedTime);
+
             eventSourceArr.push({"title": data.data[i].feeling.toString(), "description": data.data[i].notes, "start": formattedTime});
+            dateArr.push({"date": formattedTime});
+
+            let todayDate = new Date().toISOString().slice(0,10);
+            let questionAnswered = false;
+            console.log('todayDate: ',todayDate);
+            for (let i in dateArr) {
+              console.log('i in dateArr: ',i);
+              console.log('dateArr: ',dateArr);
+              if (dateArr[i].date == todayDate) {
+                console.log('Question has been answered');
+                questionAnswered = true;
+              }
+            }
+            if (questionAnswered == false) {
+              console.log('Question has not been answered');
+            } else if (questionAnswered != true) {
+              console.log('There was some error computing dates');
+            }
           }
 
           $('#calendar').fullCalendar({
