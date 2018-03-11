@@ -42,12 +42,8 @@
 
       let todayDate = new Date().toISOString().slice(0,10);
         let questionAnswered = false;
-        console.log('todayDate: ',todayDate);
         for (let i in dateArr) {
-          console.log('i in dateArr: ',i);
-          console.log('dateArr: ',dateArr);
           if (dateArr[i].date == todayDate) {
-            console.log('Question has been answered');
             questionAnswered = true;
           }
         }
