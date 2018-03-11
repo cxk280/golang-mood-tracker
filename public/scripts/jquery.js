@@ -1,5 +1,8 @@
 $( document ).ready(function() {
 
+        //Perhaps later add a function to preload all images. See below...
+        // https://stackoverflow.com/questions/476679/preloading-images-with-jquery
+
         if (top.location.pathname === '/dashboard') {
             $(".dashboard-icon").attr("src","public/assets/dashboard_active.svg");
             $("#dashboard-header-text").css("color","#7FC347");
