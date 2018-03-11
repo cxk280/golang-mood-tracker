@@ -55,6 +55,10 @@
   text-shadow: 1px 1px 0px rgba(1,1,1,0.5);
 }
 
+#graph-div {
+  border: 3px solid #7FC347;
+}
+
 input[type="radio"] {
   margin-left: 20px;
 }
