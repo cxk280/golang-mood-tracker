@@ -1,3 +1,7 @@
+body {
+  background-color: #212737!important;
+}
+
 .container {
   text-align: center;
 }
@@ -59,6 +63,22 @@
   border: 3px solid #7FC347;
 }
 
+#error-message {
+  margin-top: 5vh;
+  margin-bottom: 6vh;
+  font-family: "Source Sans Pro";
+  font-weight: bold;
+  font-size: 18px;
+  letter-spacing: 1.26px;
+  color: #FFFFFF;
+  text-shadow: 1.93px 1.93px 0px rgba(1,1,1,0.5);
+}
+
+#error-div {
+  height: 35vh;
+  width: 30vw;
+}
+
 input[type="radio"] {
   margin-left: 20px;
 }
@@ -69,7 +89,7 @@ input[type="radio"] {
 }
 
 .navbar-default {
-  background-color: white;
+  background-color: #333333;
 }
 
 .navbar-brand {
@@ -79,7 +99,6 @@ input[type="radio"] {
 .header-icon {
   width: 3.9vw;
   height: 4.5vh;
-  margin-top: -0.5vh;
 }
 
 .header-text {
@@ -89,7 +108,7 @@ input[type="radio"] {
   letter-spacing: 0.76px;
   color: #818181;
   display: inline-block;
-  margin-top: 2vh;
+  margin-top: 3.5vh;
 }
 
 .header-text-active {
@@ -162,6 +181,8 @@ input[type="radio"] {
   letter-spacing: 1.4px;
   color: #FFFFFF;
   text-shadow: 1px 1px 0px rgba(1,1,1,1);
+  max-height: 50px;
+  max-width: 150px;
 }
 
 .email-div {
