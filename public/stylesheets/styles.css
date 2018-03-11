@@ -81,6 +81,7 @@ input[type="radio"] {
 
 .credential-div {
   margin-top: 10vh;
+  padding-top: 5vh;
   background: #55A4DB;
   /*opacity: 0.5;*/
   width: 40vw;
@@ -108,7 +109,7 @@ input[type="radio"] {
   letter-spacing: 0.1px;
   color: #FFFFFF;
   text-shadow: 1px 1px 0px rgba(1,1,1,0.5);
-  padding-bottom: 2vh;
+  padding-top: 2vh;
 }
 
 .submit-button {
@@ -129,7 +130,7 @@ input[type="radio"] {
 }
 
 .email-div {
-  padding-top: 3vh;
+  padding-top: 5vh;
   text-align: left;
 }
 
@@ -140,7 +141,7 @@ input[type="radio"] {
 }
 
 .email-label {
-  margin-left: 12.85vw;
+  margin-left: 13.15vw;
 }
 
 .password-label {
