@@ -11,46 +11,41 @@
 </head>
 <body class="bg-primary">
   {{ template "header.html" .}}
-  <br /> <br /><br />
   <center>
-    <h3 class="text-white">How do you feel today?</h3>
+    <h3 id="how-do-you-feel">How do you feel today?</h3>
   </center>
-  <br />
-  <br />
   <form action="/diary" method="post" name="dashboardForm">
     <center>
-      <input type="radio" name="feeling" id="button1" value="1">
-      <label for="button1">1</label>
-      <input type="radio" name="feeling" id="button2" value="2">
-      <label for="button2">2</label>
-      <input type="radio" name="feeling" id="button3" value="3">
-      <label for="button3">3</label>
-      <input type="radio" name="feeling" id="button4" value="4">
-      <label for="button4">4</label>
-      <input type="radio" name="feeling" id="button5" value="5">
-      <label for="button5">5</label>
-      <input type="radio" name="feeling" id="button6" value="6">
-      <label for="button6">6</label>
-      <input type="radio" name="feeling" id="button7" value="7">
-      <label for="button7">7</label>
-      <input type="radio" name="feeling" id="button8" value="8">
-      <label for="button8">8</label>
-      <input type="radio" name="feeling" id="button9" value="9">
-      <label for="button9">9</label>
-      <input type="radio" name="feeling" id="button10" value="10">
-      <label for="button10">10</label>
+      <div id="dashboard-form">
+        <input type="radio" name="feeling" id="button1" value="1">
+        <label for="button1" class="buttonLabel">1</label>
+        <input type="radio" name="feeling" id="button2" value="2">
+        <label for="button2" class="buttonLabel">2</label>
+        <input type="radio" name="feeling" id="button3" value="3">
+        <label for="button3" class="buttonLabel">3</label>
+        <input type="radio" name="feeling" id="button4" value="4">
+        <label for="button4" class="buttonLabel">4</label>
+        <input type="radio" name="feeling" id="button5" value="5">
+        <label for="button5" class="buttonLabel">5</label>
+        <input type="radio" name="feeling" id="button6" value="6">
+        <label for="button6" class="buttonLabel">6</label>
+        <input type="radio" name="feeling" id="button7" value="7">
+        <label for="button7" class="buttonLabel">7</label>
+        <input type="radio" name="feeling" id="button8" value="8">
+        <label for="button8" class="buttonLabel">8</label>
+        <input type="radio" name="feeling" id="button9" value="9">
+        <label for="button9" class="buttonLabel">9</label>
+        <input type="radio" name="feeling" id="button10" value="10">
+        <label for="button10" class="buttonLabel">10</label>
+      </div>
     </center>
-    <br />
-    <br />
     <center>
       <span class="col-4"></span>
-        <textarea name="notes" class="col-4 textBox" type="text" placeholder="Write notes here."></textarea>
+        <textarea id="notes-textarea" name="notes" class="col-4 textBox" type="text" placeholder="Write notes here."></textarea>
       <span class="col-4"></span>
     </center>
-    <br />
-    <br />
     <center>
-      <input type="submit">
+      <input class="submit-button" type="submit">
     </center>
   </form>
   <br /> <br /><br />

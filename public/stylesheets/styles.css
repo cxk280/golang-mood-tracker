@@ -181,6 +181,46 @@ input[type="radio"] {
  */ margin-left: -100px;
 }
 
+#how-do-you-feel {
+  font-family: "Source Sans Pro";
+  font-weight: bold;
+  font-size: 30px;
+  color: #7FC347;
+  text-shadow: 1.93px 1.93px 0px rgba(1,1,1,0.5);
+  margin-top: 10vh;
+}
+
+#dashboard-form {
+  margin-bottom: 2vh;
+}
+
+.buttonLabel {
+  font-family: "Source Sans Pro";
+  font-weight: bold;
+  font-size: 18px;
+  letter-spacing: 0.36px;
+  color: #55A4DB;
+  text-shadow: 1.2px 1.2px 0px rgba(1,1,1,0.5);
+}
+
+#notes-textarea {
+  margin-bottom: 3vh;
+  font-family: "Source Sans Pro";
+  font-size: 18px;
+  letter-spacing: 0.27px;
+  /*color: #FFFFFF;*/
+  text-shadow: 1px 1px 0px rgba(1,1,1,0.5);
+  background: #55A4DB;
+  /*opacity: 0.5;*/
+  width: 400px;
+  height: 400px;
+  border-radius: 24px;
+  -moz-border-radius: 24px;
+  -webkit-border-radius: 24px;
+  box-shadow: 3px 3px 0px rgba(1,1,1,0.5);
+  filter:alpha(opacity:50)progid:DXImageTransform.Microsoft.Alpha(opacity:50)progid:DXImageTransform.Microsoft.dropshadow(OffX=3, OffY=3, Color='#010101');
+}
+
 a {
   color: #7FC347;
 }
@@ -190,6 +230,15 @@ a:hover {
   text-decoration: underline;
 }
 
+#notes-textarea::placeholder {
+  font-family: "Open Sans";
+  font-weight: bold;
+  font-size: 12px;
+  color: #FFFFFF!important;
+  text-align: left!important;
+  padding-top: 1vh;
+}
+
 ::placeholder {
   font-family: "Open Sans";
   font-weight: bold;
@@ -197,5 +246,7 @@ a:hover {
   color: #B4B4B4;
   text-align: center;
 };
+
+
 
 
