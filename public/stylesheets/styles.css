@@ -39,5 +39,31 @@ input[type="radio"] {
 }
 
 .navbar-default {
-  background-color: gray;
+  background-color: white;
+}
+
+.navbar-brand {
+  max-width: 100%;
+}
+
+.header-icon {
+  width: 3.3vw;
+  height: 4.5vh;
+}
+
+.header-text {
+  font-family: "Source Sans Pro";
+  font-weight: bold;
+  font-size: 19px;
+  letter-spacing: 0.76px;
+  color: #818181;
+  display: inline;
+}
+
+.header-text-active {
+  color: #55A4DB!important;
+}
+
+.header-text:hover {
+  color: #7FC347!important;
 }
