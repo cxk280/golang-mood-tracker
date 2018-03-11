@@ -16,6 +16,15 @@ body {
   height: 60vh;
 }
 
+#four-oh-four-text {
+  color: #FFFFFF;
+  margin-top: 30vh;
+  font-family: "Source Sans Pro";
+  font-weight: bold;
+  font-size: 30px;
+  text-shadow: 1.93px 1.93px 0px rgba(1,1,1,0.5);
+}
+
 #statusUpdate {
   height: 10vh;
 }

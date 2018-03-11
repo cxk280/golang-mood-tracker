@@ -75,11 +75,11 @@ func main() {
 		})
 	})
 
-	r.GET("/error", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "error.html", gin.H{
-			"errorMessage": "This is an error",
-		})
-	})
+	// r.GET("/error", func(c *gin.Context) {
+	// 	c.HTML(http.StatusOK, "error.html", gin.H{
+	// 		"errorMessage": "This is an error",
+	// 	})
+	// })
 
 	r.POST("/login", user.Signin)
 
