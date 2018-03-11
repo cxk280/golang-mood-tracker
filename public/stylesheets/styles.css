@@ -20,8 +20,39 @@
   background-color: #007bff!important;
 }
 
+#calendar .fc-button {
+  background: #55A4DB!important;
+}
+
 #calendar .fc-center h2{
-  color: white;
+  font-family: "Source Sans Pro";
+  font-weight: bold;
+  font-size: 4vh;
+  letter-spacing: 0.76px;
+  color: #7FC347;
+}
+
+#calendar .fc-button .fc-icon {
+  color: #FFFFFF;
+}
+
+#calendar .fc-day-header {
+  color: #FFFFFF;
+  background: #33cc33;
+  font-family: "Source Sans Pro";
+  font-weight: bold;
+  text-shadow: 1px 1px 0px rgba(1,1,1,0.5);
+}
+
+#calendar .fc-today {
+  background: #55A4DB;
+}
+
+#calendar .fc-day-number {
+  color: #FFFFFF;
+  font-family: "Source Sans Pro";
+  font-weight: bold;
+  text-shadow: 1px 1px 0px rgba(1,1,1,0.5);
 }
 
 input[type="radio"] {
