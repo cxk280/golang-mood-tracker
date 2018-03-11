@@ -32,3 +32,12 @@
 input[type="radio"] {
   margin-left: 20px;
 }
+
+#header-logo {
+  width: 13.5vw;
+  height: 10vh;
+}
+
+.navbar-default {
+  background-color: gray;
+}
