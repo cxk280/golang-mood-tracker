@@ -5,21 +5,21 @@
           <a class="navbar-brand col" href="/">
             <img src="public/assets/logo.svg" id="header-logo" alt="Up and Down Logo">
           </a>
-          <a class="navbar-brand col text-white" href="/dashboard">
-            <img src="public/assets/dashboard_inactive.svg" class="dashboard-icon header-icon">
-            <p class="header-text">Dashboard</p>
+          <a class="navbar-brand col header-item" href="/dashboard">
+            <img src="public/assets/dashboard_inactive.svg" onmouseover="this.src='public/assets/dashboard_active.svg'" onmouseout="this.src='public/assets/dashboard_inactive.svg'" class="dashboard-icon header-icon">
+            <p class="header-text" id="dashboard-header-text">Dashboard</p>
           </a>
-          <a class="navbar-brand col text-white" href="/diaryPage">
-            <img src="public/assets/diary_inactive.svg" class="diary-icon header-icon">
-            <p class="header-text">My Diary</p>
+          <a class="navbar-brand col header-item" href="/diaryPage">
+            <img src="public/assets/diary_inactive.svg" onmouseover="this.src='public/assets/diary_active.svg'" onmouseout="this.src='public/assets/diary_inactive.svg'" class="diary-icon header-icon">
+            <p class="header-text" id="diary-header-text">My Diary</p>
           </a>
-          <a class="navbar-brand col text-white" href="/analytics">
-            <img src="public/assets/analytics_inactive.svg" class="analytics-icon header-icon">
-            <p class="header-text">Analytics</p>
+          <a class="navbar-brand col header-item" href="/analytics">
+            <img src="public/assets/analytics_inactive.svg" onmouseover="this.src='public/assets/analytics_active.svg'" onmouseout="this.src='public/assets/analytics_inactive.svg'" src="public/assets/analytics_inactive.svg" class="analytics-icon header-icon">
+            <p class="header-text" id="analytics-header-text">Analytics</p>
           </a>
-          <a class="navbar-brand col text-white" href="/signout">
+          <a class="navbar-brand col header-item" href="/signout">
             <img src="public/assets/logout_hover.svg" class="logout-icon header-icon">
-            <p class="header-text">Sign Out</p>
+            <p class="header-text" id="logout-header-text">Sign Out</p>
           </a>
         </div>
       </div>

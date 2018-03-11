@@ -49,6 +49,7 @@ input[type="radio"] {
 .header-icon {
   width: 3.3vw;
   height: 4.5vh;
+  margin-top: -0.5vh;
 }
 
 .header-text {
@@ -57,13 +58,18 @@ input[type="radio"] {
   font-size: 19px;
   letter-spacing: 0.76px;
   color: #818181;
-  display: inline;
+  display: inline-block;
+  margin-top: 2vh;
 }
 
 .header-text-active {
+  color: #7FC347!important;
+}
+
+.header-icon:hover + .header-text {
   color: #55A4DB!important;
 }
 
 .header-text:hover {
-  color: #7FC347!important;
+  color: #55A4DB!important;
 }
