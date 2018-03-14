@@ -3,6 +3,7 @@ package controllers
 import (
   // "strconv"
   "net/http"
+  "fmt"
 
   // "golang-mood-tracker/forms"
   "golang-mood-tracker/models"
@@ -65,6 +66,8 @@ func (ctrl DashboardController) All(c *gin.Context) {
   // }
 
   // c.JSON(200, gin.H{"data": data})
+
+  fmt.Println("opening dashboard.html")
 
   c.HTML(http.StatusOK, "dashboard.html", gin.H{
     })

@@ -54,7 +54,7 @@
         if (questionAnswered == true) {
           window.location.replace("http://localhost:9000/dashboard_answered");
         }
-        if (data.data.length == 0) {
+        if (questionAnswered == false) {
           window.location.replace("http://localhost:9000/dashboard_unanswered");
         }
     },
