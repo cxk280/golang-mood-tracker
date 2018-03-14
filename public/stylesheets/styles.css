@@ -186,12 +186,10 @@ input[type="radio"] {
   filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=1.93,OffY=1.93,Color="#01010101");
   text-transform: uppercase;
   font-family: "Source Sans Pro";
-  font-size: 2.5vh;
+  font-size: 2vh;
   letter-spacing: 1.4px;
   color: #FFFFFF;
   text-shadow: 1px 1px 0px rgba(1,1,1,1);
-  max-height: 50px;
-  max-width: 150px;
 }
 
 .email-div {

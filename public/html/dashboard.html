@@ -48,12 +48,18 @@
           }
         }
 
+        console.log('data.data.length: ',data.data.length);
+
+        console.log('questionAnswered: ',questionAnswered);
         if (questionAnswered == true) {
           window.location.replace("http://localhost:9000/dashboard_answered");
         }
+        if (data.data.length == 0) {
+          window.location.replace("http://localhost:9000/dashboard_unanswered");
+        }
     },
     error: function() {
-      console.log('Diary GET failure--there are no diaries');
+      console.log('Diary GET failure');
       window.location.replace("http://localhost:9000/dashboard_unanswered");
     }
   });
