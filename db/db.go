@@ -9,23 +9,20 @@ import (
 	_ "github.com/lib/pq" //import postgres
 )
 
-//DB ...
+// Define the DB struct
 type DB struct {
 	*sql.DB
 }
 
 const (
-	//DbUser ...
 	DbUser = "postgres"
-	//DbPassword ...
 	DbPassword = "postgres"
-	//DbName ...
 	DbName = "golang_gin_db"
 )
 
 var db *gorp.DbMap
 
-//Init ...
+// Initialize the database
 func Init() {
 
 	dbinfo := fmt.Sprintf("user=%s password=%s dbname=%s sslmode=disable",
@@ -39,7 +36,7 @@ func Init() {
 
 }
 
-//ConnectDB ...
+// Connect to the database
 func ConnectDB(dataSourceName string) (*gorp.DbMap, error) {
 	db, err := sql.Open("postgres", dataSourceName)
 	if err != nil {
@@ -53,7 +50,7 @@ func ConnectDB(dataSourceName string) (*gorp.DbMap, error) {
 	return dbmap, nil
 }
 
-//GetDB ...
+// Get the database
 func GetDB() *gorp.DbMap {
 	return db
 }
