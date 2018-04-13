@@ -2,23 +2,24 @@ package controllers
 
 import (
 
-  "fmt"
-  "net/http"
+	"fmt"
+	"net/http"
 
 	"golang-mood-tracker/forms"
 	"golang-mood-tracker/models"
 
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
-  "github.com/gin-gonic/gin/binding"
+	"github.com/gin-gonic/gin/binding"
 )
 
-//UserController ...
+// Define the UserController struct
 type UserController struct{}
 
+// Initialize a new user model
 var userModel = new(models.UserModel)
 
-//getUserID ...
+// Get a user ID
 func getUserID(c *gin.Context) int64 {
 	session := sessions.Default(c)
 	userID := session.Get("user_id")
@@ -28,7 +29,7 @@ func getUserID(c *gin.Context) int64 {
 	return 0
 }
 
-//getSessionUserInfo ...
+// Get the current session's user info
 func getSessionUserInfo(c *gin.Context) (userSessionInfo models.UserSessionInfo) {
 	session := sessions.Default(c)
 	userID := session.Get("user_id")
@@ -40,13 +41,10 @@ func getSessionUserInfo(c *gin.Context) (userSessionInfo models.UserSessionInfo)
 	return userSessionInfo
 }
 
-//Signin ...
+// Sign in
 func (ctrl UserController) Signin(c *gin.Context) {
 
 	var signinForm forms.SigninForm
-
-	//Line below is blank
-	fmt.Println(signinForm)
 
   if err := c.ShouldBindWith(&signinForm, binding.Form); err != nil {
 	  c.HTML(http.StatusOK, "error.html", gin.H{
@@ -55,9 +53,6 @@ func (ctrl UserController) Signin(c *gin.Context) {
 	  c.Abort()
 	  return
   }
-
-  //Line below contains correct data
-  fmt.Println(signinForm)
 
   user, err := userModel.Signin(signinForm)
 
@@ -81,7 +76,7 @@ func (ctrl UserController) Signin(c *gin.Context) {
 
 }
 
-//Signup ...
+// Sign up
 func (ctrl UserController) Signup(c *gin.Context) {
 
 	var signupForm forms.SignupForm
@@ -116,7 +111,7 @@ func (ctrl UserController) Signup(c *gin.Context) {
 
 }
 
-//Signout ...
+// Sign out
 func (ctrl UserController) Signout(c *gin.Context) {
 
 	userID := getUserID(c)
