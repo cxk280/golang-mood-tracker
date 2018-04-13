@@ -8,7 +8,7 @@ import (
   "golang-mood-tracker/forms"
 )
 
-//analytics ...
+// Define Analytics struct
 type Analytics struct {
   ID        int64    `db:"id, primarykey, autoincrement" json:"id"`
   UserID    int64    `db:"user_id" json:"-"`
@@ -19,10 +19,10 @@ type Analytics struct {
   User      *JSONRaw `db:"user" json:"user"`
 }
 
-//AnalyticsModel ...
+// Define Analytics model struct
 type AnalyticsModel struct{}
 
-//Create ...
+// Create analytics
 func (m AnalyticsModel) Create(userID int64, form forms.AnalyticsForm) (analyticsID int64, err error) {
   getDb := db.GetDB()
 
@@ -45,19 +45,19 @@ func (m AnalyticsModel) Create(userID int64, form forms.AnalyticsForm) (analytic
   return analyticsID, err
 }
 
-//One ...
+// Get one analytics
 func (m AnalyticsModel) One(userID, id int64) (analytics Analytics, err error) {
   err = db.GetDB().SelectOne(&analytics, "SELECT a.id, a.title, a.content, a.updated_at, a.created_at, json_build_object('id', u.id, 'name', u.name, 'email', u.email) AS user FROM public.analytics a LEFT JOIN public.user u ON a.user_id = u.id WHERE a.user_id=$1 AND a.id=$2 LIMIT 1", userID, id)
   return analytics, err
 }
 
-//All ...
+// Get all analytics
 func (m AnalyticsModel) All(userID int64) (analytics []Analytics, err error) {
   _, err = db.GetDB().Select(&analytics, "SELECT a.id, a.title, a.content, a.updated_at, a.created_at, json_build_object('id', u.id, 'name', u.name, 'email', u.email) AS user FROM public.analytics a LEFT JOIN public.user u ON a.user_id = u.id WHERE a.user_id=$1 ORDER BY a.id DESC", userID)
   return analytics, err
 }
 
-// Update ...
+// Update one analytics
 func (m AnalyticsModel) Update(userID int64, id int64, form forms.AnalyticsForm) (err error) {
   _, err = m.One(userID, id)
 
@@ -70,7 +70,7 @@ func (m AnalyticsModel) Update(userID int64, id int64, form forms.AnalyticsForm)
   return err
 }
 
-// Delete ...
+// Delete one analytics
 func (m AnalyticsModel) Delete(userID, id int64) (err error) {
   _, err = m.One(userID, id)
 
