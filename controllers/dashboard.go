@@ -27,8 +27,6 @@ func (ctrl DashboardController) All(c *gin.Context) {
     return
   }
 
-  fmt.Println("opening dashboard.html")
-
   c.HTML(http.StatusOK, "dashboard.html", gin.H{
     })
 }
