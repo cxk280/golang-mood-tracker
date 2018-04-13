@@ -22,8 +22,6 @@ var diaryModel = new(models.DiaryModel)
 func (ctrl DiaryController) Create(c *gin.Context) {
 
   feelingValue := c.PostForm("feeling");
-  fmt.Println("feelingValue")
-  fmt.Println(feelingValue)
 
   //When developing, sign in via the browser with redis-server running or in Postman directly in order for Create to increment properly
   userID := getUserID(c)
