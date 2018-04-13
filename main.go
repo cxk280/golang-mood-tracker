@@ -10,7 +10,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-//CORSMiddleware ...
+// Allow CORS
 func CORSMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		c.Writer.Header().Set("Access-Control-Allow-Origin", "http://localhost")
@@ -29,26 +29,39 @@ func CORSMiddleware() gin.HandlerFunc {
 	}
 }
 
+
 func main() {
+
+	// Initialize Gin
 	r := gin.Default()
 
+	// Store session info
 	store, _ := sessions.NewRedisStore(10, "tcp", "localhost:6379", "", []byte("secret"))
 	r.Use(sessions.Sessions("gin-boilerplate-session", store))
 
+	// Call function to allow CORS
 	r.Use(CORSMiddleware())
 
+	// Initialize the database
 	db.Init()
 
+	// Initialize new controllers
 	user 				:= new(controllers.UserController)
-	analytics 	:= new(controllers.AnalyticsController)
-	dashboard 	:= new(controllers.DashboardController)
-	diary 			:= new(controllers.DiaryController)
-	index 			:= new(controllers.IndexController)
+	analytics 			:= new(controllers.AnalyticsController)
+	dashboard 			:= new(controllers.DashboardController)
+	diary 				:= new(controllers.DiaryController)
+	index 				:= new(controllers.IndexController)
 
+	// Load HTML files
 	r.LoadHTMLGlob("./public/html/*.html")
 
+	// Load static assets
 	r.Static("/public", "./public")
 
+
+
+	// *****
+	// Define routes
 	r.GET("/", index.All)
 
 	r.GET("/signup", func(c *gin.Context) {
@@ -85,12 +98,6 @@ func main() {
 		})
 	})
 
-	// r.GET("/error", func(c *gin.Context) {
-	// 	c.HTML(http.StatusOK, "error.html", gin.H{
-	// 		"errorMessage": "This is an error",
-	// 	})
-	// })
-
 	r.POST("/login", user.Signin)
 
 	r.POST("/signup", user.Signup)
@@ -100,6 +107,9 @@ func main() {
 	r.NoRoute(func(c *gin.Context) {
 		c.HTML(404, "404.html", gin.H{})
 	})
+	// *****
 
+
+	// Start the server
 	r.Run(":9000")
 }
