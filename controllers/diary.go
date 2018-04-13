@@ -12,19 +12,20 @@ import (
   "github.com/gin-gonic/gin/binding"
 )
 
-//DiaryController ...
+// Define the DiaryController struct
 type DiaryController struct{}
 
+// Initialize a new diary model
 var diaryModel = new(models.DiaryModel)
 
-// //Create ...
+// Create a new diary
 func (ctrl DiaryController) Create(c *gin.Context) {
 
   feelingValue := c.PostForm("feeling");
   fmt.Println("feelingValue")
   fmt.Println(feelingValue)
 
-  //Sign in via the browser with redis-server running or in Postman directly in order for Create to increment properly
+  //When developing, sign in via the browser with redis-server running or in Postman directly in order for Create to increment properly
   userID := getUserID(c)
 
   if userID == 0 {
@@ -61,7 +62,7 @@ func (ctrl DiaryController) Create(c *gin.Context) {
   })
 }
 
-//All ...
+// Get all diaries
 func (ctrl DiaryController) All(c *gin.Context) {
   userID := getUserID(c)
 
@@ -89,7 +90,7 @@ func (ctrl DiaryController) All(c *gin.Context) {
   c.JSON(200, gin.H{"data": data})
 }
 
-//One ...
+// Get one diary
 func (ctrl DiaryController) One(c *gin.Context) {
   userID := getUserID(c)
 
@@ -121,7 +122,7 @@ func (ctrl DiaryController) One(c *gin.Context) {
   }
 }
 
-//Update ...
+// Update one diary
 func (ctrl DiaryController) Update(c *gin.Context) {
   userID := getUserID(c)
 
@@ -164,7 +165,7 @@ func (ctrl DiaryController) Update(c *gin.Context) {
   }
 }
 
-//Delete ...
+// Delete one diary
 func (ctrl DiaryController) Delete(c *gin.Context) {
   userID := getUserID(c)
 
