@@ -8,7 +8,7 @@ import (
   "golang-mood-tracker/forms"
 )
 
-//diary ...
+// Define Diary struct
 type Diary struct {
   ID        int64    `db:"id, primarykey, autoincrement" json:"id"`
   UserID    int64    `db:"user_id" json:"-"`
@@ -19,10 +19,10 @@ type Diary struct {
   User      *JSONRaw `db:"user" json:"user"`
 }
 
-//DiaryModel ...
+// Define Diary model struct
 type DiaryModel struct{}
 
-//Create ...
+// Create a new diary
 func (m DiaryModel) Create(userID int64, form forms.DiaryForm) (diaryID int64, err error) {
   getDb := db.GetDB()
 
@@ -45,19 +45,19 @@ func (m DiaryModel) Create(userID int64, form forms.DiaryForm) (diaryID int64, e
   return diaryID, err
 }
 
-//One ...
+// Get one diary
 func (m DiaryModel) One(userID, id int64) (diary Diary, err error) {
   err = db.GetDB().SelectOne(&diary, "SELECT a.id, a.feeling, a.notes, a.updated_at, a.created_at, json_build_object('id', u.id, 'name', u.name, 'email', u.email) AS user FROM public.diary a LEFT JOIN public.user u ON a.user_id = u.id WHERE a.user_id=$1 AND a.id=$2 LIMIT 1", userID, id)
   return diary, err
 }
 
-//All ...
+// Get all diaries
 func (m DiaryModel) All(userID int64) (diaries []Diary, err error) {
   _, err = db.GetDB().Select(&diaries, "SELECT a.id, a.feeling, a.notes, a.updated_at, a.created_at, json_build_object('id', u.id, 'name', u.name, 'email', u.email) AS user FROM public.diary a LEFT JOIN public.user u ON a.user_id = u.id WHERE a.user_id=$1 ORDER BY a.id DESC", userID)
   return diaries, err
 }
 
-//Update ...
+// Update one diary
 func (m DiaryModel) Update(userID int64, id int64, form forms.DiaryForm) (err error) {
   _, err = m.One(userID, id)
 
@@ -70,7 +70,7 @@ func (m DiaryModel) Update(userID int64, id int64, form forms.DiaryForm) (err er
   return err
 }
 
-//Delete ...
+// Delete one diary
 func (m DiaryModel) Delete(userID, id int64) (err error) {
   _, err = m.One(userID, id)
 
