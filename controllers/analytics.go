@@ -12,12 +12,13 @@ import (
   "github.com/gin-gonic/gin/binding"
 )
 
-//AnalyticsController ...
+// Define the AnalyticsController struct
 type AnalyticsController struct{}
 
+// Initialize a new analytics model
 var analyticsModel = new(models.AnalyticsModel)
 
-//Create ...
+// Create new analytics
 func (ctrl AnalyticsController) Create(c *gin.Context) {
   userID := getUserID(c)
 
@@ -31,7 +32,7 @@ func (ctrl AnalyticsController) Create(c *gin.Context) {
 
   var analyticsForm forms.AnalyticsForm
 
-  //Make sure to use lower-case keys in the form data
+  // Make sure to use lower-case keys in the form data
   if err := c.ShouldBindWith(&analyticsForm, binding.Form); err != nil {
     c.HTML(http.StatusOK, "error.html", gin.H{
       "errorMessage": "Invalid form.",
@@ -55,7 +56,7 @@ func (ctrl AnalyticsController) Create(c *gin.Context) {
     })
 }
 
-//All ...
+// Get all analytics
 func (ctrl AnalyticsController) All(c *gin.Context) {
 
   userID := getUserID(c)
@@ -86,7 +87,7 @@ func (ctrl AnalyticsController) All(c *gin.Context) {
   })
 }
 
-//One ...
+// Get one analytics
 func (ctrl AnalyticsController) One(c *gin.Context) {
   userID := getUserID(c)
 
@@ -118,7 +119,7 @@ func (ctrl AnalyticsController) One(c *gin.Context) {
   }
 }
 
-//Update ...
+// Update one analytics
 func (ctrl AnalyticsController) Update(c *gin.Context) {
   userID := getUserID(c)
 
@@ -161,7 +162,7 @@ func (ctrl AnalyticsController) Update(c *gin.Context) {
   }
 }
 
-// Delete ...
+// Delete one analytics
 func (ctrl AnalyticsController) Delete(c *gin.Context) {
   userID := getUserID(c)
 
