@@ -224,24 +224,10 @@ input[type="radio"] {
   margin-left: 13.3vw;
 }
 
-.email-input {
-
-}
-
-.password-input {
-
-}
-
-.name-input {
-
-}
-
 #footer-div {
-  /*width: 100px;*/
   position: fixed;
   bottom: 0;
- /* left: 50%;
- */ margin-left: -100px;
+ margin-left: -100px;
 }
 
 #how-do-you-feel {
@@ -280,10 +266,8 @@ input[type="radio"] {
   font-family: "Source Sans Pro";
   font-size: 18px;
   letter-spacing: 0.27px;
-  /*color: #FFFFFF;*/
   text-shadow: 1px 1px 0px rgba(1,1,1,0.5);
   background: #55A4DB;
-  /*opacity: 0.5;*/
   width: 400px;
   height: 400px;
   border-radius: 24px;
