@@ -4,8 +4,8 @@ import (
   "errors"
   "time"
 
-  "golang-mood-tracker/db"
-  "golang-mood-tracker/forms"
+  "up-and-down-mood-tracker/db"
+  "up-and-down-mood-tracker/forms"
 )
 
 // Define Diary struct

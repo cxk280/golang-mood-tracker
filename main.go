@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"net/http"
 
-	"golang-mood-tracker/db"
-	"golang-mood-tracker/controllers"
+	"up-and-down-mood-tracker/db"
+	"up-and-down-mood-tracker/controllers"
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 )

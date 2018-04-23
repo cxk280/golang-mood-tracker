@@ -1,11 +1,7 @@
 package models
 
 import (
-  "errors"
-  "time"
-
-  "golang-mood-tracker/db"
-  "golang-mood-tracker/forms"
+  "up-and-down-mood-tracker/db"
 )
 
 // Define Dashboard struct

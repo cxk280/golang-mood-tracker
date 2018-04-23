@@ -2,10 +2,7 @@ package controllers
 
 import (
   "net/http"
-  "fmt"
-
-  "golang-mood-tracker/models"
-
+  "up-and-down-mood-tracker/models"
   "github.com/gin-gonic/gin"
 )
 

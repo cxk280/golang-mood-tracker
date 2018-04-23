@@ -13,9 +13,9 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"golang-mood-tracker/controllers"
-	"golang-mood-tracker/db"
-	"golang-mood-tracker/forms"
+	"up-and-down-mood-tracker/controllers"
+	"up-and-down-mood-tracker/db"
+	"up-and-down-mood-tracker/forms"
 
 	"github.com/bmizerany/assert"
 	"github.com/gin-gonic/contrib/sessions"

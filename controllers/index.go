@@ -2,9 +2,6 @@ package controllers
 
 import (
   "net/http"
-
-  "golang-mood-tracker/models"
-
   "github.com/gin-gonic/gin"
 )
 

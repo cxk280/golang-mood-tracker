@@ -5,8 +5,8 @@ import (
   "net/http"
   "fmt"
 
-  "golang-mood-tracker/forms"
-  "golang-mood-tracker/models"
+  "up-and-down-mood-tracker/forms"
+  "up-and-down-mood-tracker/models"
 
   "github.com/gin-gonic/gin"
   "github.com/gin-gonic/gin/binding"
@@ -20,8 +20,6 @@ var diaryModel = new(models.DiaryModel)
 
 // Create a new diary
 func (ctrl DiaryController) Create(c *gin.Context) {
-
-  feelingValue := c.PostForm("feeling");
 
   //When developing, sign in via the browser with redis-server running or in Postman directly in order for Create to increment properly
   userID := getUserID(c)
